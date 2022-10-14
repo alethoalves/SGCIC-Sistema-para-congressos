@@ -1,0 +1,147 @@
+{{>partials/header}}  
+{{>partials/header-menu}} 
+{{#error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/error}}
+{{#notify_error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_error}}
+<div class="container display-flex">
+    <main class="center-w section-width-large">
+        <section>
+            <div class="start">
+                <a class="btns-inline btn-danger margin-bottom-small back" >&larr; Voltar</a>
+                <h1 class="margin-bottom-small">NOVO RESUMO</h1>
+            </div>
+            <form method="POST" action="/admin/form/article?year={{year}}&searchValue={{searchValue}}">
+                <div id="form">
+                    {{#data}}
+                    {{#view}}
+                    <fieldset id="{{id}}">
+                        <legend>{{legend}}</legend>
+                        {{#labels}}
+                            {{#view}}
+                                {{#input}}
+                                <label  >
+                                    {{legend}} <br>
+                                    {{#error}}
+                                    <span class="error-msg">{{msg}}</span>
+                                    {{/error}}
+                                    <div id={{type}}>
+                                    <input {{#error}}class="error-label"{{/error}}
+                                    name="{{name}}"
+                                    {{#readonly}}readonly{{/readonly}} 
+                                    {{#disabled}}disabled{{/disabled}}
+                                    placeholder="{{placeholder}}"
+                                    value="{{value}}" 
+                                    type="{{type}}" 
+                                    oninput="{{oninput}}"
+                                    maxlength="{{maxlength}}"
+                                    minlength="{{minlength}}"
+                                    {{#required}}required{{/required}}
+                                    max="{{max}}"
+                                    min="{{min}}"
+                                    step="{{step}}"
+                                    >
+                                    {{#range}}
+                                    <span id="{{name}}">5</span>
+                                    {{/range}}
+                                    </div>
+                                </label>
+                                {{/input}}
+                                {{#select}}
+                                    <div id="{{name}}" class="legenda">{{legend}}</div>
+                                    {{#error}}
+                                    <span class="error-msg">{{msg}}</span>
+                                    {{/error}}
+                                    <div id="{{name}}" class="selectInput {{#readonly}}selectInput-readonly{{/readonly}} {{#error}} error-label {{/error}}" >
+                                        <select {{#readonly}}readonly{{/readonly}} name="{{name}}">
+                                            <option value="{{value}}" {{#select}}select{{/select}} >{{value}}</option>
+                                            {{#options}}
+                                            <option 
+                                            value="{{.}}">{{.}}</option>
+                                            {{/options}}
+                                            
+                                        </select>
+                                    </div>
+                                    
+                                {{/select}}
+                                {{#textarea}}
+                                    <label>
+                                        {{legend}} <span id="textarea-span-{{name}}"></span><br>
+                                        {{#error}}
+                                        <span class="error-msg">{{msg}}</span>
+                                        {{/error}}
+                                        <textarea {{#error}}class="error-label"  {{/error}}
+                                            name="{{name}}"
+                                            {{#readonly}}readonly{{/readonly}}  
+                                            placeholder="{{placeholder}}"
+                                            type="{{type}}" 
+                                        >{{value}}</textarea>
+                                        
+                                    </label>
+                                {{/textarea}}
+                            {{/view}}
+                        {{/labels}}
+
+                    </fieldset>
+                    {{/view}}
+                    {{/data}}
+                </div>
+                <div class="btns">
+                    <input class="btn btn-blue" type="submit" value="Enviar resumo">
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+<script>
+    document.querySelector('.back').addEventListener('click',()=>{
+        history.back()
+    })
+    document.querySelector('select[name="instituicao"]').innerHTML += '<option value="UNB">UNB</option>\n'
+
+    document.querySelector('textarea[name="resumo_introducao"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_introducao"]').value.length
+        document.querySelector('#textarea-span-resumo_introducao').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="resumo_metodologia"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_metodologia"]').value.length
+        document.querySelector('#textarea-span-resumo_metodologia').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="resumo_resultado"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_resultado"]').value.length
+        document.querySelector('#textarea-span-resumo_resultado').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="resumo_conclusao"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_conclusao"]').value.length
+        document.querySelector('#textarea-span-resumo_conclusao').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="palavras_chaves"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="palavras_chaves"]').value.length
+        document.querySelector('#textarea-span-palavras_chaves').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="colaboradores"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="colaboradores"]').value.length
+        document.querySelector('#textarea-span-colaboradores').innerHTML = qnt
+    })
+
+    
+    setTimeout(() => {
+       if (document.querySelector(".notify-float")!=undefined) {
+            document.querySelector(".notify-float").style.display = "none" 
+       }
+       if(document.querySelector(".notify-float-success")){
+        document.querySelector(".notify-float-success").style.display = "none" 
+       }
+       
+   }, "5000")
+</script>
+</html>

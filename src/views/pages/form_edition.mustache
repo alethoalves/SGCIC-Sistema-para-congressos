@@ -1,0 +1,73 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#success_float}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{success_float}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/success_float}}
+{{#error_float}}
+<div class="notify-float" onclick="javascript:this.style.display = 'none'">
+    <span>{{error_float}}</span>
+    <i  class="fa-solid fa-xmark"></i> 
+</div>
+{{/error_float}}
+<div class="container display-flex">
+        <main class="center-w section-width-large">
+            <section>
+                <div class="start">
+                    <a class="btns-inline btn-danger margin-bottom-small" href="/admin/editions">&larr; Voltar</a>
+                    <h1 class="margin-bottom-small">{{#editForm}}Editar congresso{{/editForm}}{{^editForm}}Criar Congresso{{/editForm}}</h1>
+                </div> 
+                <form method="POST" action="/admin/createOrUpdateEdition" >
+                    <label>
+                        Ano do Congresso
+                        <input {{#editForm}} readonly{{/editForm}} {{#error.year}}class="error-label"{{/error.year}}  value="{{values.year}}" type="number" name="year" >
+                        {{#error.year}}
+                        <span class="error-msg">{{msg}}</span>
+                        {{/error.year}}
+                    </label>
+                    <label>
+                        Nome do Congresso
+                        <input type="text" {{#error.title}}class="error-label"{{/error.title}}  value="{{values.title}}" name="title">
+                        {{#error.title}}
+                        <span class="error-msg">{{msg}}</span>
+                        {{/error.title}}
+                    </label>
+                    <label>
+                        Status
+                        <div class="selectInput {{#error.status}}error-label{{/error.status}}">
+                            <select name="status">
+                                <option {{#status}} selected {{/status}} value="Congresso online">Congresso online</option>
+                                <option {{^status}} selected {{/status}} value="Congresso encerrado">Congresso encerrado</option>
+                            </select>
+                        </div>
+                        {{#error.status}}
+                        <span class="error-msg">{{msg}}</span>
+                        {{/error.status}}
+                    </label>
+                    <div class="btns">
+                        <input class="btn btn-blue" type="submit" value="{{#editForm}}Editar{{/editForm}}{{^editForm}}Criar{{/editForm}}">
+                    </div>
+                    
+                </form>
+            </section>
+            
+        </main>
+
+    </div>
+    
+</body>
+<script>
+    //show or close notifications
+   setTimeout(() => {
+       if (document.querySelector(".notify-float") ) {
+        document.querySelector(".notify-float").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000")  
+</script>
+</html>

@@ -1,0 +1,75 @@
+{{>partials/admin/header}}
+</header>
+    <main class="container center-w">
+        <section class="section-width-small center-w">
+            <div class="start">
+            <a class="btns-inline btn-danger margin-bottom-small" href="/">&larr; Voltar</a>
+            <h1 class="margin-bottom-small">Fazer Cadastro</h1>
+            {{#notify_error}}
+                <div class="margin-bottom-small notify notify-danger">
+                    {{notify_error}}
+                </div>
+            {{/notify_error}}
+            </div>
+            <form method="POST" action="/signup">
+                <label>
+                    CPF
+                    <input {{#formErrors.cpf.msg}}class="error-label"{{/formErrors.cpf.msg}} 
+                    type="text"
+                    name="cpf" 
+                    placeholder="Digite seu CPF" 
+                    value="{{values.cpf}}"
+                    >
+                    {{#formErrors.cpf.msg}}
+                    <span class="error-msg">{{formErrors.cpf.msg}}</span>
+                    {{/formErrors.cpf.msg}}
+                </label>
+                <label>
+                    Nome completo
+                    <input {{#formErrors.name.msg}}class="error-label"{{/formErrors.name.msg}} 
+                    type="text"
+                    name="name" 
+                    placeholder="Digite seu nome completo" 
+                    value="{{values.name}}"
+                    >
+                    {{#formErrors.name.msg}}
+                    <span class="error-msg">{{formErrors.name.msg}}</span>
+                    {{/formErrors.name.msg}}
+                </label>
+                <label>
+                    e-mail
+                    <input {{#formErrors.email.msg}}class="error-label"{{/formErrors.email.msg}} 
+                    type="email"
+                    name="email" 
+                    placeholder="Digite seu e-mail" 
+                    value="{{values.email}}"
+                    >
+                    {{#formErrors.email.msg}}
+                    <span class="error-msg">{{formErrors.email.msg}}</span>
+                    {{/formErrors.email.msg}}
+                </label>
+                <label>
+                    Senha
+                    <input {{#formErrors.password.msg}}class="error-label"{{/formErrors.password.msg}} 
+                    type="password"
+                    name="password" 
+                    placeholder="Digite sua senha" 
+                    value=""
+                    required
+                    >
+                    {{#formErrors.password.msg}}
+                    <span class="error-msg">{{formErrors.password.msg}}</span>
+                    {{/formErrors.password.msg}}
+                </label>
+                <div class="btns">
+                    <input class="btn btn-blue" type="submit" value="Cadastrar">
+                </div>
+                <span>Já tem cadastro? <a href="/signin">Faça o login aqui!</a></span>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
+<script>
+        document.querySelector('.back').href = document.referrer
+</script>

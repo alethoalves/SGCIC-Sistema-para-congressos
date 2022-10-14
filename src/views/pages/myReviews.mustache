@@ -1,0 +1,69 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#notify_success}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_success}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_success}}
+{{#notify_error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_error}} 
+<div class="container display-flex">
+    {{>partials/admin/aside-menu}}
+    <main class="section-width-large">
+        <section>
+            <div class="start">
+                <div class="title margin-bottom-small">
+                    <h1>Minhas Avaliações</h1>
+                    <a class="btns-inline btn-white" href="/user/reviewer/subareas">Ver resumos</a>
+                </div>
+            </div>
+            {{#dataArticle}}
+            <div class="article margin-bottom-small" >
+                <div class="article-1" id="{{_id}}">
+                    <div class="header">
+                        <div class="title" style="display: block;">
+                            <strong style="display: block;" class="margin-bottom-small">{{subarea}}</strong>
+                            {{resumo_titulo}}
+                        </div>
+                        
+                        <div class="read-more font-size-big margin-left-small">
+                            <a href="/user/reviewer/clearReviewer/{{_id}}">
+                                <i class="fa-solid fa-close"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <form method="GET" action="/user/reviewer/article" >
+                    <input value="{{_id}}" type="hidden" name="id" >
+                    <input class="btn-blue" type="submit" value="Avaliar Resumo">
+                </form>
+            </div>
+            {{/dataArticle}}
+            {{^dataArticle}}
+            <div class="sorry">
+                <i class="fa-solid fa-arrow-up"></i>
+                <span>Clique acima ver os resumos disponíveis para avaliação!</span>
+            </div>
+            {{/dataArticle}}
+        </section>
+    </main>
+</div>
+</body>
+<script>
+//show or close notifications
+    setTimeout(() => {
+       if (document.querySelector(".notify-float-error") ) {
+        document.querySelector(".notify-float-error").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000")  
+</script>
+</html>

@@ -1,0 +1,52 @@
+{{>partials/admin/header}}
+</header> 
+    <main class="container center-w">
+        <section class="section-width-small center-w">
+            <div class="start">
+                <h1 class="margin-bottom-small">Fazer Login Oi</h1>
+                {{#notify_success}}
+                <div class="margin-bottom-small notify notify-success">
+                    {{notify_success}}
+                </div>
+                {{/notify_success}} 
+                {{#notify_error}}
+                <div class="margin-bottom-small notify notify-danger">
+                    {{notify_error}}
+                </div>
+                {{/notify_error}}
+            </div>
+            <form method="POST" action="/signin" >
+                <label >
+                    CPF
+                    <input {{#formErrors.cpf.msg}}class="error-label"{{/formErrors.cpf.msg}}
+                        type="text" 
+                        name="cpf" 
+                        placeholder="Digite seu CPF" 
+                        value="{{cpf}}{{values.cpf}}"
+                    >
+                    {{#formErrors.cpf.msg}}
+                    <span class="error-msg">{{formErrors.cpf.msg}}</span>
+                    {{/formErrors.cpf.msg}}
+                </label>
+                <label>
+                    Senha
+                    <input 
+                        type="password"
+                        name="password"
+                        placeholder="Digite sua senha" 
+                        value="" 
+                        required
+                    >
+                </label>
+                <div class="btns">
+                    <input class="btn btn-blue" type="submit" value="Entrar">
+                </div>
+                <div class="form-footer">
+                    <span>Não tem cadastro? <a href="/signup">Cadastre-se aqui!</a></span><br>
+                    <span >Esqueceu sua senha? <a style="color:#646C9A" href="/resetPassword">Resetar</a></span>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

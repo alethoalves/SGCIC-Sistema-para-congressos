@@ -1,0 +1,119 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#success}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{success}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/success}}
+{{#error}}
+<div class="notify-float" onclick="javascript:this.style.display = 'none'">
+    <span>{{error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/error}}
+<div class="container display-flex">
+    <main class="section-width-large center-w">  
+        <section>
+            <div class="start">
+                <a class="btns-inline btn-danger margin-bottom-small" href="/admin/dashboard/article/{{year}}{{linkDashboard}}">&larr; Voltar</a>
+                <div class="title margin-bottom-small">
+                    <h1 >RESUMOS</h1>
+                    <a class="btns-inline btn-white" href="/admin/form/new/article">Fazer submissão</a>
+                </div>
+                <form class="margin-bottom-small" id="search" method="GET" action="/admin/articles/{{year}}/{{filters.filter1.key}}/{{filters.filter1.value}}/{{filters.filter2.key}}/{{filters.filter2.value}}/{{filters.filter3.key}}/{{filters.filter3.value}}">
+                    <input type="text" value="{{searchValue}}" name="searchValue" placeholder="Busque aqui">
+                </form>
+            </div>
+            {{#dataArticle}}
+            <a class="card" href="/admin/form/article/{{_id}}">
+                <div class="status">
+                    <ul>
+                        <li>{{resumo_status}}</li>
+                        <li>{{poster_status}}</li>
+                        {{#resumo_fim_avaliacao}}
+                        <li id="nota">Nota: <span>0</span> </li>
+                        {{/resumo_fim_avaliacao}}
+                    </ul>
+                </div>
+                <div class="content">
+                    <strong>Ano da edição: </strong> {{ano}} <strong>Instituição: </strong> {{instituicao}}<br>
+                    <strong>Título: </strong> {{resumo_titulo}}<br>
+                    <strong>Edital: </strong> {{edital}} <strong>Área: </strong> {{grande_area}} <strong>Subárea: </strong> {{subarea}} <br>
+                    <strong>Aluno: </strong> {{autor_nome}} (CPF:{{autor_cpf}})<br>
+                    {{#co_autor_nome}}
+                    <strong>Co-autor: </strong> {{co_autor_nome}}<br>
+                    {{/co_autor_nome}}
+                    <strong>Orientador: </strong> {{orientador_nome}} (CPF:{{orientador_cpf}})<br>
+                    {{#resumo_fim_avaliacao}}
+                    <strong>Notas:</strong> <br>
+                        Título <span id="nota_resumo">{{resumo_titulo_nota}}</span><br>
+                        Introdução <span id="nota_resumo">{{resumo_introducao_nota}}</span><br>
+                        Metodologia <span id="nota_resumo">{{resumo_metodologia_nota}}</span><br>
+                        Resultado <span id="nota_resumo">{{resumo_resultado_nota}}</span><br>
+                        Conclusão <span id="nota_resumo">{{resumo_conclusao_nota}}</span><br>
+                    {{/resumo_fim_avaliacao}}
+                </div>
+            </a>
+            {{/dataArticle}}
+            {{^dataArticle}}
+            <div class="sorry">
+                <i class="fa-solid fa-arrow-up"></i>
+                <span>Clique acima para submeter seu resumo!</span>
+            </div>
+            {{/dataArticle}}
+        </section>
+        
+        
+    </main>
+</div>
+</body>
+<script>
+
+//change color of li status
+let q = document.querySelectorAll(".status ul li");
+    q.forEach(element => {
+        let status = element
+        switch (status.innerHTML) {
+            case "Resumo pendente":
+            case "Pôster aguardando checkin":
+                status.classList.add("btn-danger");
+                break
+            case "Resumo aguardando avaliação":
+            case "Pôster aguardando avaliação":
+                status.classList.add("btn-warning")
+                break;
+            case "Resumo em avaliação":
+            case "Pôster em avaliação":
+                status.classList.add("btn-green")
+                break;
+            case "Resumo avaliado":
+            case "Pôster avaliado":
+                status.classList.add("btn-blue")
+                break;
+            default:
+                break;
+        }
+    });
+//show or close notifications
+    setTimeout(() => {
+       if (document.querySelector(".notify-float") ) {
+        document.querySelector(".notify-float").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000")  
+
+    document.querySelectorAll('.card').forEach((e)=>{
+    let total = 0
+    e.querySelectorAll('#nota_resumo').forEach((e)=>{
+        total = total + parseFloat(e.innerHTML)
+    })
+    e.querySelector('#nota span').innerHTML = total
+    
+})
+</script>
+</script>
+</html>

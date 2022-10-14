@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+*{
+    box-sizing: border-box;
+}
+.container-admin{
+display: flex;
+justify-content: center;
+}
+
+main{
+    max-width:1000px;
+}
+
+
+
+
+.btn-danger{
+    color:#fff;
+    background-color: var(--collor-red);
+
+}
+/**
+mini cards
+**/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.list li{
+    width: 100%;
+}
+.list li .a-card{
+    width: 100%;
+    color: var(--collor-gray);
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+.list li .a-card:hover{
+    box-shadow:  0px 0px 7px rgb(100, 108, 154,0.5);
+}
+.list li .a-card .title{
+    padding:8px 15px;
+    max-width: 230px;
+    border-radius: 100px 0 0 100px;
+    background-color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+
+.list li .a-card .info{
+    color: #FFF;
+    background-color: var(--collor-yellow);
+    padding:8px 15px;
+    width: 70px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mini-card{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    flex-direction: row;   
+}
+
+
+/***
+@media only screen and (max-width: 670px){
+    .group-mini-cards{
+        color: var(--collor-gray);
+        display: block;
+    }
+    .group-mini-cards .a-card .card{
+        margin-right: 0;
+        width: 100%;
+    }
+    .mini-card{
+        display: flex;
+    }
+    .filter{
+        width: 100%;
+        margin: 0 0 15px 0;
+    }
+    form input[type="submit"]{
+        margin-bottom: 15px;
+    }
+}
+**/

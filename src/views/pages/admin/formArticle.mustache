@@ -1,0 +1,52 @@
+{{>partials/admin/header}}
+<div class="container center">
+
+        <main>
+            <h1><a href="/admin/articles">&larr;</a>SUBMISSÃO</h1>
+            <div class="data">{{data}}</div>
+            <section>
+                <form  action="/admin/article" method="POST">
+                    <div id="form">
+                        
+                    </div>
+                </form>
+            </section>
+            
+        </main>
+
+    </div>
+    
+</body>
+<script src="/js/formModel.js"></script>
+<script src="/js/func_formArticleConstructor.js"></script>
+<script src="/js/func_contarNotas.js"></script>
+<script>
+    
+    let data = JSON.parse(document.querySelector(".data").innerHTML);
+    if (data._id == undefined) {
+        formModel[0].labels[0].view = false;
+    } 
+    
+    formModel[4].labels[4].view = false
+    formModel[4].labels[5].view = false
+    formModel[4].labels[6].view = false
+    formModel[4].labels[7].view = false
+    formModel[4].labels[8].view = false
+    formModel[4].labels[9].view = false
+    formModel[4].labels[10].view = false
+    formModel[4].labels[11].view = false
+    formArticleConstructor("form",data);
+    contarNotas()
+    
+    
+    
+   
+    
+    /*today = new Date(Date.now())
+    
+    if (document.getElementById("poster_inicio_avaliacao").value =="") {
+        document.getElementById("poster_inicio_avaliacao").value = today.toUTCString()
+    }*/
+    
+</script>
+</html>

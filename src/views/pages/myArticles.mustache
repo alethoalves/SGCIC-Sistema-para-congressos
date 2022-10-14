@@ -1,0 +1,95 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#notify_success}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_success}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_success}}
+{{#notify_error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_error}} 
+<div class="container display-flex">
+    {{>partials/admin/aside-menu}}
+    <main class="section-width-large">
+        <section>
+            <div class="start">
+                <div class="title margin-bottom-small">
+                    <h1 >MEUS RESUMOS</h1>
+                    <a class="btns-inline btn-white" href="/user/newArticle">Fazer submissão</a>
+                </div>
+                <form class="margin-bottom-small" id="search" method="GET" action="/user/myArticles">
+                    <input type="text" value="{{searchValue}}" name="search" placeholder="Busque aqui">
+                </form>
+            </div>
+            {{#dataArticle}}
+            <a class="card" href="editArticle/{{_id}}">
+                <div class="status">
+                    <ul>
+                        <li>{{resumo_status}}</li>
+                        <li>{{poster_status}}</li>
+                    </ul>
+                </div>
+                <div class="content">
+                    <strong>Ano da edição: </strong> {{ano}} <strong>Instituição: </strong> {{instituicao}}<br>
+                    <strong>Título: </strong> {{resumo_titulo}}<br>
+                    <strong>Edital: </strong> {{edital}} <strong>Área: </strong> {{grande_area}} <strong>Subárea: </strong> {{subarea}} <br>
+                    <strong>Aluno: </strong> {{autor_nome}} (CPF:{{autor_cpf}})<br>
+                    {{#co_autor_nome}}
+                    <strong>Co-autor: </strong> {{co_autor_nome}}<br>
+                    {{/co_autor_nome}}
+                    <strong>Orientador: </strong> {{orientador_nome}} (CPF:{{orientador_cpf}})<br>
+                </div>
+            </a>
+            {{/dataArticle}}
+            {{^dataArticle}}
+            <div class="sorry">
+                <i class="fa-solid fa-arrow-up"></i>
+                <span>Clique acima para submeter seu resumo!</span>
+            </div>
+            {{/dataArticle}}
+        </section>
+    </main>
+</div>
+</body>
+<script>
+//change color of li status
+let q = document.querySelectorAll(".status ul li");
+    q.forEach(element => {
+        let status = element
+        switch (status.innerHTML) {
+            case "Resumo pendente":
+            case "Pôster aguardando checkin":
+                status.classList.add("btn-danger");
+                break
+            case "Resumo aguardando avaliação":
+            case "Pôster aguardando avaliação":
+                status.classList.add("btn-warning")
+                break;
+            case "Resumo em avaliação":
+            case "Pôster em avaliação":
+                status.classList.add("btn-green")
+                break;
+            case "Resumo avaliado":
+            case "Pôster avaliado":
+                status.classList.add("btn-blue")
+                break;
+            default:
+                break;
+        }
+    });
+//show or close notifications
+    setTimeout(() => {
+       if (document.querySelector(".notify-float-error") ) {
+        document.querySelector(".notify-float-error").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000")  
+</script>
+</html>

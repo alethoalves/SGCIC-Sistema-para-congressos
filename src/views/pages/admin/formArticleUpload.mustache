@@ -1,0 +1,27 @@
+{{>partials/admin/header}}
+<div class="container center">
+        <main >
+            <h1><a href="/admin/articles">&larr;</a>UPLOAD DE ARTIGOS</h1>
+            <section>
+                <form action="/admin/article/upload" method="POST">
+                    <label>
+                        Ano do Congresso
+                        <input value="{{dataForm.data.year}}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(4, this.maxLength);" type="number" name="year" maxlength = "4"  >
+                    </label>
+                    <label>
+                        Dados <br>
+                        <textarea name="data" id="" ></textarea>
+                    </label>
+                    <div class="btns">
+                        <input class="btn-blue" type="submit">
+                    
+                    </div>
+                </form>
+            </section>
+        </main>
+
+    </div>
+    
+</body>
+
+</html>

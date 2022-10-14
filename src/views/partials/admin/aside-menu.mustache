@@ -1,0 +1,26 @@
+<aside>
+    {{#menu.types.menuUser}}
+    <ul>
+        <li class="{{#menu.objects.myArticles}}select{{/menu.objects.myArticles}}"><a href="/user/myArticles">Meus Resumos</a></li>
+        <li class="{{#menu.objects.myProfile}}select{{/menu.objects.myProfile}}"><a href="/user/myProfile">Meu Perfil</a></li>
+    </ul>
+    {{/menu.types.menuUser}}
+    {{#menu.types.menuAdmin}}
+    <ul>
+        <li class="{{#menu.objects.events}}select{{/menu.objects.events}}"><a href="/admin/editions">Congressos</a></li>
+        <li class="{{#menu.objects.subareas}}select{{/menu.objects.subareas}}"><a href="/user/reviewer/subareas">Resumos para avaliar</a></li>
+        <li class="{{#menu.objects.myReviews}}select{{/menu.objects.myReviews}}"><a href="/user/reviewer/myReviews">Minhas avaliações</a></li>
+        <li class="{{#menu.objects.myArticles}}select{{/menu.objects.myArticles}}"><a href="/user/myArticles">Meus Resumos</a></li>
+        <li class="{{#menu.objects.myProfile}}select{{/menu.objects.myProfile}}"><a href="/user/myProfile">Meu Perfil</a></li>
+    </ul>
+    {{/menu.types.menuAdmin}}
+    {{#menu.types.menuReviewer}}
+    <ul>
+        <li class="{{#menu.objects.subareas}}select{{/menu.objects.subareas}}"><a href="/user/reviewer/subareas">Resumos para avaliar</a></li>
+        <li class="{{#menu.objects.myReviews}}select{{/menu.objects.myReviews}}"><a href="/user/reviewer/myReviews">Minhas avaliações</a></li>
+
+        <li class="{{#menu.objects.myArticles}}select{{/menu.objects.myArticles}}"><a href="/user/myArticles">Meus Resumos</a></li>
+        <li class="{{#menu.objects.myProfile}}select{{/menu.objects.myProfile}}"><a href="/user/myProfile">Meu Perfil</a></li>
+    </ul>
+    {{/menu.types.menuReviewer}}
+</aside>

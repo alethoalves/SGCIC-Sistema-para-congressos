@@ -1,0 +1,81 @@
+{{>partials/admin/header}}
+<div class="container">
+    {{>partials/admin/aside-menu}}
+
+    <main>
+            <h1>CONGRESSOS</h1>
+            
+            <div class="header">
+                <section>
+                    <form id="newEdition" method="get" action="/admin/edition/1900">
+                        <input class="btn-white" type="submit" value="Criar Congresso">
+                    </form>
+                </section>
+                <form id="search" method="POST" action="/admin/edition/search">
+                    <input type="text" value="{{textSearch}}" name="text" placeholder="Busque aqui">
+                </form>
+                
+            </div>
+            <section>
+                {{#dataEdition}}
+                <div class="card">
+                    <div class="left">
+                        <div class="status">
+                            <ul>
+                                <li>{{status}}</li>
+                            </ul>
+                        </div>
+                        <div class="content">
+                            <strong>Ano da edição: </strong> {{year}} <br>
+                            <strong>Nome da edição: </strong> teste<br>
+                        </div>
+                        <div class="info">
+                            <div class="card-info">
+                                <div class="title">Submissões</div>
+                                <div class="value">2793</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="title">Menções Honrosas</div>
+                                <div class="value">2793</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="title">Indicações ao prêmio</div>
+                                <div class="value">674</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/admin/edition/{{year}}" class="right">
+                        
+                            <div class="edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                        
+                    </a>
+                    
+                </div>
+                {{/dataEdition}}
+                {{^dataEdition}}
+                <div class="sorry">
+                    <i class="fa-solid fa-heart-crack"></i>
+                    <span>Desculpe, não encontramos</span>
+                </div>
+                {{/dataEdition}}
+            </section>
+        </main>
+
+    </div>
+    
+</body>
+<script>
+    let q = document.querySelectorAll(".status");
+    q.forEach(element => {
+        let status = element.querySelector("li")
+        if (status.innerHTML == "Congresso online") {
+            status.classList.add("btn-blue")
+        } else {
+            status.classList.add("btn-danger")
+        }
+    });
+    
+</script>
+</html>

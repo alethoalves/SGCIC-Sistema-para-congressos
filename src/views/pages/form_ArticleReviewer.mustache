@@ -1,0 +1,219 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#notify_success}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_success}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_success}} 
+{{#notify_error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_error}}
+<div class="container display-flex">
+    <main class="center-w section-width-large">
+        <section>
+            <div class="start">
+                <a class="btns-inline btn-danger margin-bottom-small" href="/user/reviewer/myReviews">&larr; Voltar</a>
+                <h1 class="margin-bottom-small">AVALIAR RESUMO</h1>
+            </div>
+            
+            
+            <form method="POST" action="">
+                <div id="form">
+                    {{#data}}
+                    {{#view}}
+                    <fieldset id="{{id}}">
+                        <legend>{{legend}}</legend>
+                        {{#labels}}
+                            {{#view}}
+                                {{#input}}
+                                <label  >
+                                    {{legend}} <br>
+                                    {{#error}}
+                                    <span class="error-msg">{{msg}}</span>
+                                    {{/error}}
+                                    <div id={{type}}>
+                                    <input {{#error}}class="error-label"{{/error}}
+                                    name="{{name}}"
+                                    {{#readonly}}readonly{{/readonly}} 
+                                    {{#disabled}}disabled{{/disabled}}
+                                    placeholder="{{placeholder}}"
+                                    value="{{#range}}0{{value}}{{/range}}{{^range}}{{value}}{{/range}}" 
+                                    type="{{type}}" 
+                                    oninput="{{oninput}}"
+                                    maxlength="{{maxlength}}"
+                                    minlength="{{minlength}}"
+                                    {{#required}}required{{/required}}
+                                    max="{{max}}"
+                                    min="{{min}}"
+                                    step="{{step}}"
+                                    >
+                                    {{#range}}
+                                    <span id="{{name}}">{{value}}</span>
+                                    
+                                    {{/range}}
+                                    </div>
+                                </label>
+                                {{/input}}
+                                {{#select}}
+                                    <div id="{{name}}" class="legenda">{{legend}}</div>
+                                    {{#error}}
+                                    <span class="error-msg">{{msg}}</span>
+                                    {{/error}}
+                                    <div id="{{name}}" class="selectInput {{#readonly}}selectInput-readonly{{/readonly}} {{#error}} error-label {{/error}}" >
+                                        <select {{#readonly}}readonly{{/readonly}} name="{{name}}">
+                                            <option value="{{value}}" {{#select}}select{{/select}} >{{value}}</option>
+                                            {{#options}}
+                                            <option 
+                                            value="{{.}}">{{.}}</option>
+                                            {{/options}}
+                                            
+                                        </select>
+                                    </div>
+                                    
+                                {{/select}}
+                                {{#textarea}}
+                                    <label>
+                                        {{legend}} <span id="textarea-span-{{name}}"></span><br>
+                                        {{#error}}
+                                        <span class="error-msg">{{msg}}</span>
+                                        {{/error}}
+                                        <textarea {{#error}}class="error-label"  {{/error}}
+                                            name="{{name}}"
+                                            {{#readonly}}readonly{{/readonly}}  
+                                            placeholder="{{placeholder}}"
+                                            type="{{type}}" 
+                                        >{{value}}</textarea>
+                                        
+                                    </label>
+                                {{/textarea}}
+                            {{/view}}
+                        {{/labels}}
+
+                    </fieldset>
+                    {{/view}}
+                    {{/data}}
+                </div>
+                <div class="btns">
+                    <input class="btn btn-blue" type="submit" value="Finalizar avaliação">
+                </div>
+                <div id="notify-score" class="margin-bottom-small notify notify-danger">
+                    Para concluir a avaliação, atribua nota para o título, introdução, metodologia, resultados e conclusão!
+                </div>
+
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+<script>
+    if (
+        document.querySelector('input[name="resumo_titulo_nota"]').value =='0'|| 
+        document.querySelector('input[name="resumo_introducao_nota"]').value =='0'||
+        document.querySelector('input[name="resumo_metodologia_nota"]').value =='0'||
+        document.querySelector('input[name="resumo_resultado_nota"]').value =='0'||
+        document.querySelector('input[name="resumo_conclusao_nota"]').value =='0'
+    ) {
+        document.querySelector('input[type="submit"]').style.display='none'
+    }
+    //Count score
+    function countScore() {
+        let i = 0;
+        document.querySelectorAll('input[type="range"]').forEach((e)=>{
+            i += parseFloat(e.value);
+        });
+
+        let score = i/5 * 10
+        console.log(score)
+
+        if(score >= 80 && score < 100 ){
+            document.querySelector('#dados-premiacao').style.display = 'block'
+
+            document.querySelector('select[name="premio"]').innerHTML = 
+            `
+            <option value="" select="">Não indicar</option>
+            <option value="Menção honrosa">Menção honrosa</option>
+            `
+        }else if(score>=100){
+            document.querySelector('#dados-premiacao').style.display = 'block'
+
+            document.querySelector('select[name="premio"]').innerHTML = 
+            `
+            <option value="" select="">Não indicar</option>
+            <option value="Menção honrosa">Menção honrosa</option>
+            <option value="Indicação a prêmio destaque">Indicar ao prêmio destaque</option>
+            `
+        }else{
+            document.querySelector('#dados-premiacao').style.display = 'none'
+            document.querySelector('select[name="premio"]').innerHTML = 
+            `
+            <option value="" select="">Não indicar</option>`
+        }
+        return score
+    }
+    document.querySelectorAll('input[type="range"]').forEach((e)=>{
+            e.addEventListener('change',(e)=>{
+                if (
+                    document.querySelector('input[name="resumo_titulo_nota"]').value =='0'|| 
+                    document.querySelector('input[name="resumo_introducao_nota"]').value =='0'||
+                    document.querySelector('input[name="resumo_metodologia_nota"]').value =='0'||
+                    document.querySelector('input[name="resumo_resultado_nota"]').value =='0'||
+                    document.querySelector('input[name="resumo_conclusao_nota"]').value =='0'
+                ) {
+                    document.querySelector('input[type="submit"]').style.display='none'
+                    document.querySelector('#notify-score').style.display='block'
+
+                }else{
+                    document.querySelector('input[type="submit"]').style.display='block'
+                    document.querySelector('#notify-score').style.display='none'
+                }
+                countScore()
+            })
+        })
+    document.querySelector('select[name="premio"]').innerHTML = 
+        `
+        <option value="" select="">Não indicar</option>`
+    document.querySelector('#dados-premiacao').style.display = 'none'
+    //
+    document.querySelector('textarea[name="resumo_introducao"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_introducao"]').value.length
+        document.querySelector('#textarea-span-resumo_introducao').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="resumo_metodologia"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_metodologia"]').value.length
+        document.querySelector('#textarea-span-resumo_metodologia').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="resumo_resultado"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_resultado"]').value.length
+        document.querySelector('#textarea-span-resumo_resultado').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="resumo_conclusao"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="resumo_conclusao"]').value.length
+        document.querySelector('#textarea-span-resumo_conclusao').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="palavras_chaves"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="palavras_chaves"]').value.length
+        document.querySelector('#textarea-span-palavras_chaves').innerHTML = qnt
+    })
+    document.querySelector('textarea[name="colaboradores"]').addEventListener('keyup', (evt) => {
+        let qnt = document.querySelector('textarea[name="colaboradores"]').value.length
+        document.querySelector('#textarea-span-colaboradores').innerHTML = qnt
+    })
+    if (document.querySelector('select[name=instituicao] option[select').value != "UNB") {
+        document.querySelector('.notify-danger').style.display = "none"
+    }
+    //show or close notifications
+    setTimeout(() => {
+       if (document.querySelector(".notify-float-error") ) {
+        document.querySelector(".notify-float-error").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000") 
+</script>
+</html>

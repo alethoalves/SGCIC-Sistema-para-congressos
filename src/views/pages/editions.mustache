@@ -1,0 +1,81 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#success_float}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{success_float}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/success_float}}
+{{#error_float}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{error_float}}</span>
+    <i  class="fa-solid fa-xmark"></i> 
+</div>
+{{/error_float}}
+<div class="container display-flex">
+    {{>partials/admin/aside-menu}}
+    <main class="section-width-large">
+        <section>
+            <div class="start">
+                <div class="title margin-bottom-small">
+                    <h1>CONGRESSOS</h1>
+                    <a class="btns-inline btn-white" href="/admin/form/edition">Criar congresso</a>
+                </div>
+            </div>
+            {{#dataEdition}}
+            <a class="card" href="/admin/dashboard/article/{{year}}">
+                <div class="status">
+                    <ul>
+                        <li>{{status}}</li>
+                    </ul>
+                </div>
+                <div class="content">
+                    <strong>Ano da edição: </strong> {{year}} <br>
+                    <strong>Nome da edição: </strong> {{title}}<br>
+                </div>
+            </a>
+            {{/dataEdition}}
+            {{^dataEdition}}
+            <div class="sorry">
+                <i class="fa-solid fa-arrow-up"></i>
+                <span>Clique acima para criar um congresso!</span>
+            </div>
+            {{/dataEdition}}
+        </section>
+    </main>
+</div> 
+</body>
+<script>
+
+let q = document.querySelectorAll(".status ul li");
+    q.forEach(element => {
+        let status = element
+        switch (status.innerHTML) {
+            case "Congresso encerrado":
+                status.classList.add("btn-danger");
+                break
+            case "Congresso online":
+                status.classList.add("btn-green-light")
+                break;
+            default:
+                break;
+        }
+    });
+    
+
+    
+
+   //show or close notifications
+   setTimeout(() => {
+       if (document.querySelector(".notify-float-error") ) {
+        document.querySelector(".notify-float-error").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000")  
+
+    
+</script>
+</html>

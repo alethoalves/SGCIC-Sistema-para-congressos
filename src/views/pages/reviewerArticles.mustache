@@ -1,0 +1,96 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#notify_success}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_success}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_success}}
+{{#notify_error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_error}}
+<div class="container display-flex">
+    <main class="section-width-large center-w">  
+        <section>
+            <div class="start">
+                <a class="btns-inline btn-danger margin-bottom-small" href="/user/reviewer/subareas">&larr; Voltar</a>
+                <div class="title margin-bottom-small">
+                    <h1>RESUMOS: {{subarea}}</h1>
+                </div>
+            </div>
+            {{#dataArticle}}
+            <div class="article margin-bottom-small" >
+                <div class="article-1" id="{{_id}}" onclick="openOrClose(this)">
+                    <div class="header">
+                        <div class="title">
+                            {{resumo_titulo}}
+                        </div>
+                        
+                        <div class="read-more">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="content display-none">
+                        <p>{{resumo_introducao}}</p>
+                        <p>{{resumo_metodologia}}</p>
+                        <p>{{resumo_resultado}}</p>
+                        <p>{{resumo_conclusao}}</p>
+                    </div>
+                </div>
+                <form method="POST" action="/user/reviewer/getArticle" >
+                    <input value="{{_id}}" type="hidden" name="id" >
+                    <input value="{{subarea}}" type="hidden" name="subarea" >
+                    <input class="btn-blue" type="submit" value="Atribuir para mim">
+                </form>
+            </div>
+            
+            {{/dataArticle}}
+            {{^dataArticle}}
+            <div class="sorry sorry-center">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Não há resumos para essa área. Selecione outra!</span>
+            </div>
+            {{/dataArticle}}
+        </section>
+        
+        
+    </main>
+</div>
+</body>
+<script>
+    let status = false;
+function openOrClose(e) {
+    if(e.querySelector('.display-none') == null){
+        document.querySelectorAll('.content').forEach((e)=>{
+            e.classList.add('display-none')
+        })
+        e.querySelector('.content').classList.add('display-none')
+        e.querySelector('.fa-solid').classList.add('fa-caret-down')
+        e.querySelector('.fa-solid').classList.remove('fa-caret-up')
+    }else{
+        document.querySelectorAll('.content').forEach((e)=>{
+            e.classList.add('display-none')
+        })
+        e.querySelector('.content').classList.remove('display-none')
+        e.querySelector('.fa-solid').classList.remove('fa-caret-down')
+        e.querySelector('.fa-solid').classList.add('fa-caret-up')
+    }   
+
+}
+    
+
+setTimeout(() => {
+       if (document.querySelector(".notify-float-error") ) {
+        document.querySelector(".notify-float-error").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000")  
+</script>
+</script>
+</html>

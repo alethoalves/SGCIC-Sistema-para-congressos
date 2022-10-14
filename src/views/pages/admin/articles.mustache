@@ -1,0 +1,95 @@
+{{>partials/admin/header}}
+</header>
+
+<div class="container">
+    {{>partials/admin/aside-menu}}
+
+        <main>
+            <h1>SUBMISSÕES</h1>
+            
+            <div class="header">
+                <section>
+                    <form id="" method="get"  action="/admin/article/62b10c704c26ce7b0f12e0ae">
+                        <input class="btn-white" type="submit" value="Fazer submissão">
+                    </form>
+                    <form id="" method="get" action="/admin/article/upload">
+                        <input class="btn-white" type="submit" value="Upload">
+                    </form>
+                </section>
+                <form id="search" method="POST" action="/admin/article/search">
+                    <input type="text" value="{{textSearch}}" name="text" placeholder="Busque aqui">
+                </form>
+                
+            </div>
+            <section>
+                {{#dataArticle}}
+                <div class="card">
+                    <div class="left">
+                        <div class="status">
+                            <ul>
+                                <li>{{resumo_status}}</li>
+                                <li>{{poster_status}}</li>
+                            </ul>
+                        </div>
+                        <div class="content">
+                            <strong>Ano da edição: </strong> {{ano}} <br>
+                            <strong>Título: </strong> {{resumo_titulo}}<br>
+                            <strong>Edital: </strong> {{edital}} <strong>Área: </strong> {{grande_area}} <strong>Subárea: </strong> {{subarea}} <br>
+                            <strong>Autor: </strong> {{autor_nome}} (CPF:{{autor_cpf}})<br>
+                            {{#co_autor_nome}}
+                            <strong>Autor: </strong> {{co_autor_nome}}<br>
+                            {{/co_autor_nome}}
+                            <strong>Orientador: </strong> {{orientador_nome}} (CPF:{{orientador_cpf}})<br>
+                        </div>
+                        
+                    </div>
+                    <a href="/admin/article/{{_id}}" class="right">
+                        
+                            <div class="edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                        
+                    </a>
+                    
+                </div>
+                {{/dataArticle}}
+                {{^dataArticle}}
+                <div class="sorry">
+                    <i class="fa-solid fa-heart-crack"></i>
+                    <span>Desculpe, não encontramos</span>
+                </div>
+                {{/dataArticle}}
+            </section>
+        </main>
+
+    </div>
+    
+</body>
+<script>
+    let q = document.querySelectorAll(".status ul li");
+    q.forEach(element => {
+        let status = element
+        switch (status.innerHTML) {
+            case "Resumo pendente":
+            case "Pôster aguardando checkin":
+                status.classList.add("btn-danger");
+                break
+            case "Resumo aguardando avaliação":
+            case "Pôster aguardando avaliação":
+                status.classList.add("btn-warning")
+                break;
+            case "Resumo em avaliação":
+            case "Pôster em avaliação":
+                status.classList.add("btn-green")
+                break;
+            case "Resumo avaliado":
+            case "Pôster avaliado":
+                status.classList.add("btn-blue")
+                break;
+            default:
+                break;
+        }
+    });
+    
+</script>
+</html>

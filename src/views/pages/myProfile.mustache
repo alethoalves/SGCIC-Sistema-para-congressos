@@ -1,0 +1,101 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#success}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{success}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/success}}
+{{#error}}
+<div class="notify-float" onclick="javascript:this.style.display = 'none'">
+    <span>{{error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/error}}
+{{#notify_error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_error}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_error}}
+<div class="container display-flex">
+    {{>partials/admin/aside-menu}}
+    <main class="section-width-small">
+        <section>
+            <div class="start">
+                <div class="title margin-bottom-small">
+                    <h1>MEU Perfil</h1>
+                </div>
+            </div>
+            <form method="POST" action="/user/myProfile">
+                <input type="hidden" name="_id" value="{{values._id}}">
+                <label>
+                    CPF
+                    <input readonly {{#error.cpf.msg}}class="error-label"{{/error.cpf.msg}} 
+                    type="text"
+                    name="cpf" 
+                    placeholder="Digite seu CPF" 
+                    value="{{values.cpf}}"
+                    >
+                    {{#error.cpf.msg}}
+                    <span class="error-msg">{{error.cpf.msg}}</span>
+                    {{/error.cpf.msg}}
+                </label>
+                <label>
+                    Nome completo
+                    <input {{#error.name.msg}}class="error-label"{{/error.name.msg}} 
+                    type="text"
+                    name="name" 
+                    placeholder="Digite seu nome completo" 
+                    value="{{values.name}}"
+                    >
+                    {{#error.name.msg}}
+                    <span class="error-msg">{{error.name.msg}}</span>
+                    {{/error.name.msg}}
+                </label>
+                <label>
+                    e-mail
+                    <input {{#error.email.msg}}class="error-label"{{/error.email.msg}} 
+                    type="email"
+                    name="email" 
+                    placeholder="Digite seu e-mail" 
+                    value="{{values.email}}"
+                    >
+                    {{#error.email.msg}}
+                    <span class="error-msg">{{error.email.msg}}</span>
+                    {{/error.email.msg}}
+                </label>
+                <div class="btns">
+                    <input class="btn btn-blue" type="submit" value="Salvar alterações">
+                </div>
+            </form>
+        </section>
+        <section>
+            <div class="start">
+                <div class="title margin-bottom-small">
+                    <h1>Alterar senha</h1>
+                </div>
+            </div>
+            <form method="POST" action="/user/myProfile/update/password">
+                <input type="hidden" name="_id" value="{{values._id}}">
+                <label>
+                    Nova senha
+                    <input {{#error.password.msg}}class="error-label"{{/error.password.msg}} 
+                    type="password"
+                    name="password" 
+                    placeholder="Digite sua nova senha" 
+                    value=""
+                    >
+                    {{#error.password.msg}}
+                    <span class="error-msg">{{error.password.msg}}</span>
+                    {{/error.password.msg}}
+                </label>
+                <div class="btns">
+                    <input class="btn btn-blue" type="submit" value="Alterar senha">
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>

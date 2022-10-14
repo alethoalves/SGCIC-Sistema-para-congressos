@@ -1,0 +1,295 @@
+{{>partials/header}}
+{{>partials/header-menu}}
+{{#notify_success}}
+<div class="notify-float-success" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_success}}</span>
+    <i  class="fa-solid fa-xmark"></i>
+</div>
+{{/notify_success}}
+{{#notify_error}}
+<div class="notify-float-error" onclick="javascript:this.style.display = 'none'">
+    <span>{{notify_error}}</span>
+    <i  class="fa-solid fa-xmark"></i> 
+</div>
+{{/notify_error}}
+<div class="container display-flex dashboard">
+    <main class="center-w ">
+        <a class="btns-inline btn-danger margin-bottom-small" href="/admin/editions">&larr; Voltar</a>
+        <section class="margin-bottom-small">
+            <div class="title margin-bottom-small">
+                <h1>{{year}} - {{#dataEdition}}{{status}}{{/dataEdition}}</h1>
+                <a class="btns-inline btn-white btn-config-menu"><i class="fa-solid fa-gear"></i> <span>Configurações</span></a>
+                <div class="config-menu">
+                    <ul>
+                        <li><a href="/admin/form/edition/{{year}}">Editar</a></li>
+                        <li><a href="/admin/deleteEdition/{{year}}">Excluir</a></li>
+                    </ul>
+                </div>
+                <script>
+                    let marginRight = window.innerWidth > 1000 ? (window.innerWidth - 1000)/2 : 20;
+                    document.querySelector('.config-menu').style.right = marginRight+'px'
+                    document.querySelector('.btn-config-menu').addEventListener('click',()=>{
+                        if (document.querySelector('.config-menu').style.display == 'none' || document.querySelector('.config-menu').style.display == '') {
+                            open('.config-menu')
+                        }else{
+                            close('.config-menu')
+                        } 
+                    });
+                    document.querySelector('.config-menu').addEventListener('mouseleave',()=>{
+                        close('.config-menu')
+                    });
+                </script>
+            </div>
+            
+            <div class="group-mini-cards">
+                {{#mini_cards}}
+                <a href="{{link}}" class="a-card">
+                    <div class="content">
+                        <div class="title">{{title}}</div>
+                        <div class="number">{{value}}</div>
+                    </div>
+                    <div class="icon">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                </a>
+                {{/mini_cards}}
+            </div>
+        </section>
+        <section class="margin-bottom-small">
+            <div class="title margin-bottom-small">
+                <h1>Resumos não avaliados</h1>
+            </div>
+            <div class="list">
+                <ul>
+                    {{#subareaList}}
+                    <li>
+                        <a href="/admin/articles/2022?subarea={{title}}" class="a-card">
+                            <div class="title">{{title}}</div>
+                            <div class="info">
+                                <div class="unique-info">
+                                    {{qnt}}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/subareaList}}
+                    
+                </ul>
+            </div>
+        </section>
+        <section class="margin-bottom-large">
+            <div class="title margin-bottom-small">
+                <h1>resumos avaliados</h1>
+                
+            </div>
+            <div class="list">
+                <ul>
+                    {{#notas}}
+                    <li>
+                        <a href="/admin/articles/2022?notas={{filter}}" class="a-card">
+                            <div class="title">{{title}}</div>
+                            <div class="info">
+                                <div class="unique-info">
+                                    {{qnt}}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/notas}}
+                    
+                </ul>
+            </div>
+        </section>
+        <section class="margin-bottom-small ">
+            <div class="filter">
+                <form method="GET" action="">
+                    <div class="fieldsets">
+                        <fieldset>
+                            <legend>Filtrar primeiro por</legend>
+                            <label>
+                                <div class="selectInput">
+                                    <select name="filter1">
+                                        <option value="" selected></option>
+                                        <option id="filter1-instituicao" value="instituicao">Instituição</option>
+                                        <option id="filter1-edital" value="edital">Edital</option>
+                                        <option id="filter1-grande_area" value="grande_area">Grande área</option>
+                                    </select>
+                                </div>
+                            </label>
+                            <label class="filter1-value">
+                                <div class="selectInput" >
+                                    <select name="filter1_value">
+                                        <option id="instituicao" selected value="all">Todos</option>
+                                        <option id="instituicao" value="UNB">UNB</option>
+                                        <option id="instituicao" value="UNICEUB">UNICEUB</option>
+                                        <option id="instituicao" value="UCB">UCB</option>
+                                        <option id="instituicao" value="IESB">IESB</option>
+
+                                        <option id="edital" selected value="all">Todos</option>
+                                        <option id="edital" value="PIBIC">PIBIC</option>
+                                        <option id="edital" value="PIBIC-AF">PIBIC-AF</option>
+                                        <option id="edital" value="PIBITI">PIBITI</option>
+                                        <option id="edital" value="PIBIC-EM">PIBIC-EM</option>
+
+                                        <option id="grande_area" selected value="all">Todos</option>
+                                        <option id="grande_area" value="Artes e Humanidades">Artes e Humanidades</option>
+                                        <option id="grande_area" value="Saúde e Vida">Saúde e Vida</option>
+                                        <option id="grande_area" value="Exatas e Tecnológicas">Exatas e Tecnológicas</option>
+                                    </select>
+                                </div>
+                            </label>
+                        </fieldset>
+                        <fieldset id="fieldset-filter2">
+                            <legend>Depois filtrar por</legend>
+                            <label>
+                                <div class="selectInput">
+                                    <select name="filter2">
+                                        <option value="" selected></option>
+                                        <option id="filter2-instituicao" value="instituicao">Instituição</option>
+                                        <option id="filter2-edital" value="edital">Edital</option>
+                                        <option id="filter2-grande_area" value="grande_area">Grande área</option>
+                                    </select>
+                                </div>
+                            </label>
+                            <label class="filter2-value">
+                                <div class="selectInput" >
+                                    <select name="filter2_value">
+                                        <option id="instituicao" selected value="all">Todos</option>
+                                        <option id="instituicao" value="UNB">UNB</option>
+                                        <option id="instituicao" value="UNICEUB">UNICEUB</option>
+                                        <option id="instituicao" value="UCB">UCB</option>
+                                        <option id="instituicao" value="IESB">IESB</option>
+
+                                        <option id="edital" selected value="all">Todos</option>
+                                        <option id="edital" value="PIBIC">PIBIC</option>
+                                        <option id="edital" value="PIBIC-AF">PIBIC-AF</option>
+                                        <option id="edital" value="PIBITI">PIBITI</option>
+                                        <option id="edital" value="PIBIC-EM">PIBIC-EM</option>
+
+                                        <option id="grande_area" selected value="all">Todos</option>
+                                        <option id="grande_area" value="Artes e Humanidades">Artes e Humanidades</option>
+                                        <option id="grande_area" value="Saúde e Vida">Saúde e Vida</option>
+                                        <option id="grande_area" value="Exatas e Tecnológicas">Exatas e Tecnológicas</option>
+                                    </select>
+                                </div>
+                            </label>
+                        </fieldset>
+                    </div>
+                    <input class="btn btn-blue margin-bottom-small" type="submit" value="Processar">
+                </form>
+            </div>
+            <div class=" table-card">
+                <div class="header">
+                    <div class="title">{{filter1.key}}: {{filter1.value}}</div>
+                    <div class="sub-title">{{filter2.key}}: {{filter2.value}}</div>
+                </div>
+                <div class="content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Aguardando resumo</th>
+                                <th>Aguardando avaliação</th>
+                                <th>em Avaliação</th>
+                                <th>Avaliado</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#rows}}
+                            <tr>
+                                <td>{{title}}</td>
+    
+                                <td><a href="/admin/articles/{{year}}/{{filter1.key}}/{{filter1.value}}/{{filter2.key}}/{{filter2.value}}/{{filter3.key}}/{{title}}/resumo_status/Resumo%20pendente">{{resumo_pendente}}</a></td>
+                                <td><a href="/admin/articles/{{year}}/{{filter1.key}}/{{filter1.value}}/{{filter2.key}}/{{filter2.value}}/{{filter3.key}}/{{title}}/resumo_status/Resumo%20aguardando%20avaliação">{{resumo_aguardando}}</a></td>
+                                <td><a href="/admin/articles/{{year}}/{{filter1.key}}/{{filter1.value}}/{{filter2.key}}/{{filter2.value}}/{{filter3.key}}/{{title}}/resumo_status/Resumo%20em%20avaliação">{{resumo_em_avaliacao}}</a></td>
+                                <td><a href="/admin/articles/{{year}}/{{filter1.key}}/{{filter1.value}}/{{filter2.key}}/{{filter2.value}}/{{filter3.key}}/{{title}}/resumo_status/Resumo%20avaliado">{{resumo_avaliado}}</a></td>
+                                <td><a href="/admin/articles/{{year}}/{{filter1.key}}/{{filter1.value}}/{{filter2.key}}/{{filter2.value}}/{{filter3.key}}/{{title}}">{{total}}</a></td>
+                            </tr>
+                            {{/rows}}
+                            <tr>
+                                <td>TOTAL</td>
+                                {{#totalColumn}}
+                                <td><a href="/admin/articles/{{year}}/{{filter1.key}}/{{filter1.value}}/{{filter2.key}}/{{filter2.value}}/{{filter3.key}}/all/resumo_status/{{title}}">{{value}}</a></td>
+                                {{/totalColumn}}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+</div>
+</body>
+<script>
+
+    //show or close notifications
+   setTimeout(() => {
+       if (document.querySelector(".notify-float") ) {
+        document.querySelector(".notify-float").style.display = "none" 
+       } 
+        if (document.querySelector(".notify-float-success")) {
+            document.querySelector(".notify-float-success").style.display = "none" 
+        }
+        
+    }, "5000")  
+    
+
+   document.querySelector('.table-card .title').innerHTML = document.querySelector('.table-card .title').innerHTML.replace('all','Todos(as)').replace('instituicao','Instituição').replace('grande_area','Grande Área').replace('edital','Edital')
+   document.querySelector('.table-card .sub-title').innerHTML = document.querySelector('.table-card .sub-title').innerHTML.replace('all','Todos(as)').replace('instituicao','Instituição').replace('grande_area','Grande Área').replace('edital','Edital')
+
+   document.querySelector('[name=filter1]').addEventListener('change',()=>{
+        document.querySelector('[name="filter2"]').value='';
+        document.querySelector('[name="filter2_value"]').value='';
+        document.querySelector('form input[type="submit"]').style.display="none"
+        document.querySelector('#fieldset-filter2').style.display = 'none'
+        //esconde a div que engloba o select 
+        document.querySelector('.filter1-value').style.display = 'none'
+        //reseta o value do select
+        document.querySelector('[name=filter1_value]').value=''
+        //esconde todas as options
+        document.querySelectorAll('.filter1-value option').forEach((e)=>{e.style.display='none'})
+        //pega o valor do filtro1
+        let filtro1 = document.querySelector('[name=filter1]').value;
+        if (filtro1 != "") {
+            //exibe apenas as options referente ao valor do filtro1
+            document.querySelectorAll(`#${filtro1}`).forEach((e)=>{e.style.display='block'})
+            //exibe a div que engloba os select
+            document.querySelector('.filter1-value').style.display = 'block';
+            //esconde no filtro2 a option igual ao value filtro1
+            document.querySelectorAll(`[name="filter2"] option`).forEach((e)=>{e.style.display='block'})
+            document.querySelector(`[name="filter2"] [value="${filtro1}"]`).style.display='none';
+            //exibe o fieldseto do filter 2
+            //document.querySelector('#fieldset-filter2').style.display = 'block'
+        }
+})
+
+document.querySelector('[name=filter2]').addEventListener('change',()=>{
+    document.querySelector('form input[type="submit"]').style.display="none"
+    //esconde a div que engloba o select 
+    document.querySelector('.filter2-value').style.display = 'none'
+    //reseta o value do select
+    document.querySelector('[name=filter2_value]').value=''
+    //esconde todas as options
+    document.querySelectorAll('.filter2-value option').forEach((e)=>{e.style.display='none'})
+    //pega o valor do filtro1
+    let filtro2 = document.querySelector('[name=filter2]').value;
+    if (filtro2 != "") {
+        //exibe apenas as options referente ao valor do filtro2
+        document.querySelectorAll(`#${filtro2}`).forEach((e)=>{e.style.display='block'})
+        //exibe a div que engloba os select
+        document.querySelector('.filter2-value').style.display = 'block';
+        
+    }
+})
+document.querySelector('[name=filter1_value]').addEventListener('change',()=>{
+    document.querySelector('form input[type="submit"]').style.display="none"
+    document.querySelector('#fieldset-filter2').style.display = 'block'
+}) 
+document.querySelector('[name=filter2_value]').addEventListener('change',()=>{
+    document.querySelector('form input[type="submit"]').style.display="block";
+    
+})                              
+</script>
+</html>
