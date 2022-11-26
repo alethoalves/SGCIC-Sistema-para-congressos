@@ -28,15 +28,35 @@ const userModel = connection && connection.models[modelName]?(connection.models[
 export default userModel;
 
 export const User = {
-    getOneByCPF: (obj:{cpf:string})=>{
-         return  userModel.findOne(obj)
+    getAll:async ()=>{
+        let data = userModel.find({});
+        return data
+    },
+    search:async (data,value)=>{
+        
+        return data.filter(item=>{
+            return (
+                item.name.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
+                ||
+                item.email.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
+                ||
+                item.cpf.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
+                
+                )
+        })
+    },
+    getOneByCPF:async (cpf)=>{
+        let data =  userModel.findOne({cpf:cpf});
+        return data
     },
     getOneById: (id)=>{
 
         return  userModel.findOne({_id:id})
    },
+   delUserByCPF: async (cpf)=>{
+    await userModel.deleteOne({cpf})
+    },
     userCreate: async (obj)=>{
-        console.log(obj.isReviewer)
         //encrypt password
         const passwordHash = await bcrypt.hash(obj.password,10);
         //create user data

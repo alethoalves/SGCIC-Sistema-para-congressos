@@ -1,0 +1,191 @@
+{{>private/partials/head}}
+{{>private/partials/header}}
+{{>private/partials/bg-circles}}
+<div class="modal">
+    <div class="modal-card">
+        <div class="close mb-1" onclick="closeModal('.modal') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div id="user-form">
+            
+            {{#notify_success}}
+            <div class="form-success mt-2">
+                <p>{{notify_success}}</p>
+            </div>
+            {{/notify_success}} 
+            {{#notify_error}}
+            <div class="form-error mt-2">
+                <p>{{notify_error}}</p>
+            </div>
+            {{/notify_error}}
+            <form action="/admin/users" id="form-user" method="POST">
+                <input
+                    class="display-none"
+                    
+                    type="text"
+                    id="searchValue" 
+                    name="searchValue"
+                    value="{{searchValue}}{{values.searchValue}}"
+                >
+                <label style="display: none;" id="_id" for="">
+                    <p>ID:</p>
+                    <input 
+                    class="display-none"
+                        type="text"
+                        placeholder="Apenas números!" 
+                        id="_id" 
+                        name="_id"
+                        value="{{values._id}}"
+                        {{#formErrors._id.msg}}
+                        class="input-error"
+                        {{/formErrors._id.msg}}
+                    >
+                    {{#formErrors._id.msg}}
+                    <p class="error-inline">{{formErrors._id.msg}}</p>
+                    {{/formErrors._id.msg}}
+                </label>
+                <label id="name" for="">
+                    
+                    
+                    <p>Nome completo:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite seu nome!" 
+                        id="name" 
+                        name="name"
+                        value="{{values.name}}"
+                        {{#formErrors.name.msg}}
+                        class="input-error"
+                        {{/formErrors.name.msg}}
+                    >
+                    {{#formErrors.name.msg}}
+                    <p class="error-inline">{{formErrors.name.msg}}</p>
+                    {{/formErrors.name.msg}}
+                </label>
+                <label id="email" for="">
+                    <p>E-mail:</p>
+                    <input 
+                        type="text"
+                        placeholder="meu@email.com" 
+                        id="email" 
+                        name="email"
+                        value="{{values.email}}"
+                        {{#formErrors.email.msg}}
+                        class="input-error"
+                        {{/formErrors.email.msg}}
+                    >
+                    {{#formErrors.email.msg}}
+                    <p class="error-inline">{{formErrors.email.msg}}</p>
+                    {{/formErrors.email.msg}}
+                </label>
+                <label id="cpf" for="">
+                    <p>Digite seu CPF:</p>
+                    <input 
+                        readonly
+                        type="number"
+                        placeholder="Apenas números!" 
+                        id="cpf" 
+                        name="cpf"
+                        value="{{values.cpf}}"
+                        {{#formErrors.cpf.msg}}
+                        class="input-error"
+                        {{/formErrors.cpf.msg}}
+                    >
+                    {{#formErrors.cpf.msg}}
+                    <p class="error-inline">{{formErrors.cpf.msg}}</p>
+                    {{/formErrors.cpf.msg}}
+                </label>
+                <div class="display-flex">
+                    <label for="" class="flex-1 mr-2">
+                        <p>É Administrador?</p>
+                        <select name="isAdmin" id="">
+                            <option {{#values.isAdmin}} selected {{/values.isAdmin}} value="true">Sim</option>
+                            <option {{^values.isAdmin}} selected {{/values.isAdmin}} value="false">Não</option>
+                        </select>
+                    </label>
+                    <label for="" class="flex-1">
+                        <p>É Avaliador?</p>
+                        <select name="isReviewer" id="">
+                            <option {{#values.isReviewer}} selected {{/values.isReviewer}} value="true">Sim</option>
+                            <option {{^values.isReviewer}} selected {{/values.isReviewer}} value="false">Não</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-btns mt-1">
+                    <a href="#" class="btn " onclick="document.getElementById('form-user').submit()">Salvar</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<main>
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <section class="pt-10 ml-3 mr-3">
+        <h4 class="color-primary">Lista de usuários</h4>
+
+        <form class="search w-100" action="/admin/users" method="GET">
+            <input type="text" value="{{searchValue}} " name="searchValue" placeholder="Busque aqui!">
+            <img src="/svg/icon-search.svg" alt="" onload="SVGInject(this)">
+        </form>
+        <div class="div-table">
+            <table >
+                <thead>
+                    <th>CPF</th>
+                    <th>Nome do usuário</th>
+                    <th>Permissões</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    {{# data }}
+                    <tr class="linha" >
+                        <td class="btn-edit" form-name="user" data-id="{{_id}}" data-name="{{name}}" data-cpf="{{cpf}}" data-email="{{email}}" data-isAdmin = "{{isAdmin}}" data-isReviewer = "{{isReviewer}}">
+                            {{cpf}}
+                        </td>
+                        <td class="btn-edit" form-name="user" data-id="{{_id}}" data-name="{{name}}" data-cpf="{{cpf}}" data-email="{{email}}" data-isAdmin = "{{isAdmin}}" data-isReviewer = "{{isReviewer}}">
+                            {{name}}
+                        </td>
+                        <td class="btn-edit" form-name="user" data-id="{{_id}}" data-name="{{name}}" data-cpf="{{cpf}}" data-email="{{email}}" data-isAdmin = "{{isAdmin}}" data-isReviewer = "{{isReviewer}}">
+                            
+                                {{#isAdmin}}<span class="status-green">Administrador</span>{{/isAdmin}}
+                                {{#isReviewer}}<span class="status-green">Avaliador</span>{{/isReviewer}}
+                                {{^isAdmin}}
+                                    {{^isReviewer}}
+                                        <span class="status-green">Usuário</span>
+                                    {{/isReviewer}}
+                                {{/isAdmin}}
+                            
+                        </td>
+                        <td>
+                            <a class="auxiliary-red" href="/admin/users/del/{{cpf}}">Excluir</a>
+                        </td>
+                    </tr>
+                    {{/ data }}
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+</main>
+
+
+
+{{>private/partials/body-end}}
+{{# modal }}
+    <script>
+        showModal('.modal')
+    </script>
+{{/ modal }}
+

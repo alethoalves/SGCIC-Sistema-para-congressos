@@ -1,0 +1,241 @@
+{{>private/partials/head}}
+{{>private/partials/header-reviewer}}
+{{>private/partials/bg-circles}}
+<div class="modal">
+    <div class="modal-card">
+        <div class="close mb-1" onclick="closeModal('.modal') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div class="article" style="padding-left: 0px;padding-right: 0px;background-color: transparent">
+            <a  class="card-article">
+                <div class="card-article-item-2 mb-3">
+                    <h4 class="title color-primary">
+                        {{data.resumo_titulo}}
+                    </h4>
+                    <p>
+                        por <strong class="color-primary">{{data.autor_nome}}</strong>
+                    </p>
+                    <p>
+                        sob orientação de <strong class="color-primary">{{data.orientador_nome}}</strong>
+                    </p>
+                    
+                </div>
+                <p id="resumo_introducao"  class="mb-3 longText">
+                    {{data.resumo_introducao}}
+                </p>
+                <p id="resumo_metodologia" class="mb-3 longText">
+                    {{data.resumo_metodologia}}
+                </p>
+                <p id="resumo_resultado" class="mb-3 longText">
+                    {{data.resumo_resultado}}
+                </p>
+                <p id="resumo_conclusao" class="mb-3 longText">
+                    {{data.resumo_conclusao}}
+                </p>
+            </a>
+        </div>
+            
+        
+    </div>
+</div>
+<main class="bg-white-light ">
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <div class="article" style="padding-top:80px ;">
+        <a onclick="showModal('.modal')" class="card-article" style="cursor: pointer;">
+            <div class="card-article-item-1">
+                <div class="keyword">
+                    {{data.grande_area}} - {{data.subarea}}
+                </div>
+            </div>
+            <div class="card-article-item-2">
+                <h4 class="my-2">
+                    {{data.resumo_titulo}}
+                </h4>
+                <p>
+                    por <strong>{{data.autor_nome}}</strong>
+                </p>
+                <p>
+                    sob orientação de <strong>{{data.orientador_nome}}</strong>
+                </p>
+                
+            </div>
+            <div class="card-article-item-3" style="margin-bottom:0">
+                {{#data.poster_turno}}
+                <div class="item">
+                    <div class="time-line-item-icon">
+                        <img src="/svg/icon-map.svg" alt="" onload="SVGInject(this)">
+                    </div>
+                    <div class="time-line-item-content">
+                        <h5 class="color-primary">Pôster nº <strong>{{data.poster_numero}}</strong></h5>
+                        <p>
+                            Turno {{data.poster_turno}} <br>
+                        </p>
+                    </div>
+                </div>
+                {{/data.poster_turno}}
+            </div>
+        </a>
+        <a href="/user/reviewer/return/{{data._id}}" class="btn-secondary w-100 " style="text-align: center;">Devolver</a>
+
+        <form method="POST" action="/user/reviewer/article/submit" id="form-reviewer" >
+                
+            <label id="_id" for="">
+                <input 
+                    class="display-none"
+                    type="text"
+                    id="_id" 
+                    name="_id"
+                    value="{{data._id}}"
+                >
+            </label>
+            <h5 class="color-primary mb-2">Atribuir notas</h5>
+            <label>
+                <p>Qualidade do material de exposição</p>
+                <div id="range" class="display-flex">
+                <input name="poster_nota_1" placeholder="Notas entre 0 e 10" value="0" type="range" oninput="javascript:(Number(this.value)>10)?this.value=10:this.value ; (Number(this.value)<0)?this.value=0:this.value ; document.getElementById(this.name).innerHTML= this.value" maxlength="" minlength="" max="10" min="0" step="0.5">
+                <span id="poster_nota_1" class="flex-center" style=" width:50px;"></span>
+                
+                </div>
+            </label>
+            <label>
+                <p>Clareza de exposição</p>
+                <div id="range" class="display-flex">
+                <input name="poster_nota_2" placeholder="Notas entre 0 e 10" value="0" type="range" oninput="javascript:(Number(this.value)>10)?this.value=10:this.value ; (Number(this.value)<0)?this.value=0:this.value ; document.getElementById(this.name).innerHTML= this.value" maxlength="" minlength="" max="10" min="0" step="0.5">
+                <span id="poster_nota_2" class="flex-center" style=" width:50px;"></span>
+                </div>
+            </label>
+            <label>
+                <p>Domínio dos conceitos envolvidos</p>
+                <div id="range" class="display-flex">
+                <input name="poster_nota_3" placeholder="Notas entre 0 e 10" value="0" type="range" oninput="javascript:(Number(this.value)>10)?this.value=10:this.value ; (Number(this.value)<0)?this.value=0:this.value ; document.getElementById(this.name).innerHTML= this.value" maxlength="" minlength="" max="10" min="0" step="0.5">
+                <span id="poster_nota_3" class="flex-center" style=" width:50px;"></span>
+                </div>
+            </label>
+            <label>
+                <p>Capacidade de responder à arguição do avaliador</p>
+                <div id="range" class="display-flex">
+                <input name="poster_nota_4" placeholder="Notas entre 0 e 10" value="0" type="range" oninput="javascript:(Number(this.value)>10)?this.value=10:this.value ; (Number(this.value)<0)?this.value=0:this.value ; document.getElementById(this.name).innerHTML= this.value" maxlength="" minlength="" max="10" min="0" step="0.5">
+                <span id="poster_nota_4" class="flex-center" style=" width:50px;"></span>
+                </div>
+            </label>
+            <label>
+                <p>Uso adequado do tempo de apresentação</p>
+                <span>10 min para apresentação e 5 min para responder perguntas do avaliador</span>
+                <div id="range" class="display-flex">
+                <input name="poster_nota_5" placeholder="Notas entre 0 e 10" value="0" type="range" oninput="javascript:(Number(this.value)>10)?this.value=10:this.value ; (Number(this.value)<0)?this.value=0:this.value ; document.getElementById(this.name).innerHTML= this.value" maxlength="" minlength="" max="10" min="0" step="0.5">
+                <span id="poster_nota_5" class="flex-center" style=" width:50px;"></span>
+                </div>
+            </label>
+            <label id="dados-premiacao">
+                <p>Indicação a:</p>
+                <select name="premio" id="premio">
+                    <option value="" select="">Não indicar</option>
+                    <option value="Menção honrosa">Menção honrosa</option>
+                    <option value="Indicação a prêmio destaque">Indicar ao prêmio destaque</option>
+                </select>
+            </label>
+            
+            <div class="form-btns ">
+                <a href="#" id="btn-finalizar-avaliacao" class="btn w-100 mb-3" style="text-align: center;" onclick="document.getElementById('form-reviewer').submit()">Finalizar avaliação</a>
+            </div>
+            <div id="notify-score" class="form-error">
+                <p>Para concluir a avaliação, atribua nota para os 5 itens!</p>
+                <p>Indicação à menção honrosa: Nota total acima de 40 pontos.</p>
+                <p>Indicação à Prêmio destaque: Nota total igual a 50 pontos.</p>
+            </div>
+        </form>
+    </div>
+
+    
+</main>
+
+
+
+{{>private/partials/body-end}}
+
+<script>
+    if (
+        document.querySelector('input[name="poster_nota_1"]').value =='0'|| 
+        document.querySelector('input[name="poster_nota_2"]').value =='0'||
+        document.querySelector('input[name="poster_nota_3"]').value =='0'||
+        document.querySelector('input[name="poster_nota_4"]').value =='0'||
+        document.querySelector('input[name="poster_nota_5"]').value =='0'
+    ) {
+        document.querySelector('#btn-finalizar-avaliacao').style.display='none'
+    }
+    //Count score
+    function countScore() {
+        let i = 0;
+        document.querySelectorAll('input[type="range"]').forEach((e)=>{
+            i += parseFloat(e.value);
+        });
+
+        let score = i/5 * 10
+        console.log(score)
+
+        if(score >= 80 && score < 100 ){
+            document.querySelector('#dados-premiacao').style.display = 'block'
+
+            document.querySelector('select[name="premio"]').innerHTML = 
+            `
+            <option value="" select="">Não indicar</option>
+            <option value="Menção honrosa">Menção honrosa</option>
+            `
+        }else if(score>=100){
+            document.querySelector('#dados-premiacao').style.display = 'block'
+
+            document.querySelector('select[name="premio"]').innerHTML = 
+            `
+            <option value="" select="">Não indicar</option>
+            <option value="Menção honrosa">Menção honrosa</option>
+            <option value="Indicação a prêmio destaque">Indicar ao prêmio destaque</option>
+            `
+        }else{
+            document.querySelector('#dados-premiacao').style.display = 'none'
+            document.querySelector('select[name="premio"]').innerHTML = 
+            `
+            <option value="" select="">Não indicar</option>`
+        }
+        return score
+    }
+    document.querySelectorAll('input[type="range"]').forEach((e)=>{
+            e.addEventListener('change',(e)=>{
+                if (
+                    document.querySelector('input[name="poster_nota_1"]').value =='0'|| 
+                    document.querySelector('input[name="poster_nota_2"]').value =='0'||
+                    document.querySelector('input[name="poster_nota_3"]').value =='0'||
+                    document.querySelector('input[name="poster_nota_4"]').value =='0'||
+                    document.querySelector('input[name="poster_nota_5"]').value =='0'
+                ) {
+                    document.querySelector('#btn-finalizar-avaliacao').style.display='none'
+                    document.querySelector('#notify-score').style.display='block'
+
+                }else{
+                    document.querySelector('#btn-finalizar-avaliacao').style.display='block'
+                    document.querySelector('#notify-score').style.display='none'
+                }
+                countScore()
+            })
+        })
+    document.querySelector('select[name="premio"]').innerHTML = 
+        `
+        <option value="" select="">Não indicar</option>`
+    document.querySelector('#dados-premiacao').style.display = 'none'
+    //
+    
+    
+</script>
+
+
+

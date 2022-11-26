@@ -1,0 +1,169 @@
+//Typography of project
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+@mixin typeface-1 ($size,$device:desktop) {
+    
+    font-family: 'Inter', sans-serif;
+    //H1
+    @if $size == h1 and $device == desktop{
+        font-size: 64px;
+        line-height: 100%;
+    }@else if $size == h1 and $device == mobile{
+        font-size: 36px;
+        line-height: 120%;
+    }
+    //H2
+    @else if $size == h2 and $device == desktop{
+        font-size: 52px;
+        line-height: 110%;
+    }@else if $size == h2 and $device == mobile{
+        font-size: 36px;
+        line-height: 120%;
+    }
+    //H3
+    @else if $size == h3 and $device == desktop{
+        font-size: 36px;
+        line-height: 115%;
+    }@else if $size == h3 and $device == mobile{
+        font-size: 24px;
+        line-height: 120%;
+    }
+    //H4
+    @else if $size == h4 and $device == desktop{
+        font-size: 24px;
+        line-height: 130%;
+    }@else if $size == h4 and $device == mobile{
+        font-size: 18px;
+        line-height: 130%;
+    }
+    //H5
+    @else if $size == h5 and $device == desktop{
+        font-size: 18px;
+        line-height: 140%;
+    }@else if $size == h5 and $device == mobile{
+        font-size: 16px;
+        line-height: 150%;
+    }
+}
+
+@mixin typeface-2 ($size:p2,$device:desktop) {
+    
+    font-family: 'Inter', sans-serif;
+    //P1
+    @if $size == p1 and $device == desktop{
+        font-size: 24px;
+        line-height: 130%;
+    }@else if $size == p1 and $device == mobile{
+        font-size: 18px;
+        line-height: 130%;
+    }
+    //P2
+    @else if $size == p2 and $device == desktop{
+        font-size: 16px;
+        line-height: 130%;
+    }@else if $size == p2 and $device == mobile{
+        font-size: 14px;
+        line-height: 150%;
+    }
+    //P3
+    @else if $size == p3 and $device == desktop{
+        font-size: 14px;
+        line-height: 150%;
+    }@else if $size == p3 and $device == mobile{
+        font-size: 12px;
+        line-height: 130%;
+    }
+}
+
+h1{
+    color: $black;
+    @include typeface-1(h1,desktop);
+    @include responsive(s){
+        @include typeface-1(h1,mobile);
+    }
+}
+h2{
+    color: $black;
+    @include typeface-1(h2,desktop);
+    @include responsive(s){
+        @include typeface-1(h2,mobile);
+    }
+}
+h3{
+    color: $black;
+    @include typeface-1(h3,desktop);
+    @include responsive(s){
+        @include typeface-1(h3,mobile);
+    }
+}
+h4{
+    color: $black;
+    @include typeface-1(h4,desktop);
+    @include responsive(s){
+        @include typeface-1(h4,mobile);
+    }
+}
+h5{
+    color: $black;
+    @include typeface-1(h5,desktop);
+    @include responsive(s){
+        @include typeface-1(h5,mobile);
+    }
+}
+
+p{
+    color:$gray-4;
+    @include typeface-2(p2,desktop);
+    @include responsive(s){
+        @include typeface-2(p3,mobile);
+    }
+}
+
+
+
+.bold{
+    font-weight: bold;
+    color: $primary;
+}
+span{
+    color:$gray-4;
+    @include typeface-2(p3,desktop);
+    @include responsive(s){
+        @include typeface-2(p3,mobile);
+    }
+    a{
+        color:$auxiliary-red-dark;
+        @include typeface-2(p3,desktop);
+    }
+    a:hover{
+        color:$auxiliary-red-light;
+    }
+}
+strong{
+    font-weight: bold;
+    color: $primary-dark;
+}
+.small-warning{
+    font-weight:400;
+    color: $auxiliary-red-dark;
+}
+.text-align-center{
+    text-align: center;
+}
+
+.text-wight-light{
+    color: $gray-4;
+    font-size: 12px;
+    font-weight: 300;
+}
+.longText{
+    font-size: 16px;
+    line-height: 170%;
+    @include responsive(s){
+        font-size: 14px;
+        line-height: 160%;
+    }
+}
+.font-size-10{
+    font-size: 10px;
+}

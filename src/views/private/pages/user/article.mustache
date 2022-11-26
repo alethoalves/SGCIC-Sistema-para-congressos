@@ -1,0 +1,150 @@
+{{>private/partials/head}}
+{{>private/partials/header-user}}
+<!--######### MODAL CHECKIN ###########-->
+<div class="modal modal-checkin">
+    <div class="modal-card">
+        <div class="close mb-1" onclick="closeModal('.modal-checkin') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div id="modal-checkin-form">
+            
+            {{#notify_error}}
+            <div class="form-error">
+                <p>{{notify_error}}</p>
+            </div>
+            {{/notify_error}}
+            <form action="/user/article/checkin" id="form-checkin" method="POST">
+                
+                <label id="_id" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="_id" 
+                        name="_id"
+                        value="{{values._id}}{{data._id}}"
+                    >
+                </label>
+                <label id="poster_status" for="">
+                    <p>Pôster status:</p>
+                    <input 
+                    readonly
+                        type="text"
+                        id="poster_status" 
+                        name="poster_status"
+                        value="{{values.poster_status}}{{data.poster_status}}"
+                        {{#formErrors.poster_status.msg}}
+                        class="input-error"
+                        {{/formErrors.poster_status.msg}}
+                    >
+                    {{#formErrors.poster_status.msg}}
+                    <p class="error-inline">{{formErrors.poster_status.msg}}</p>
+                    {{/formErrors.poster_status.msg}}
+                </label>
+                <label id="poster_numero" for="">
+                    <p>Pôster nº:</p>
+                    <input 
+                    readonly
+                        type="number"
+                        id="poster_numero" 
+                        name="poster_numero"
+                        value="{{values.poster_numero}}{{data.poster_numero}}"
+                        {{#formErrors.poster_numero.msg}}
+                        class="input-error"
+                        {{/formErrors.poster_numero.msg}}
+                    >
+                    {{#formErrors.poster_numero.msg}}
+                    <p class="error-inline">{{formErrors.poster_numero.msg}}</p>
+                    {{/formErrors.poster_numero.msg}}
+                </label>
+                <label id="poster_turno" for="">
+                    <p>Pôster turno:</p>
+                    <input 
+                    readonly
+                        type="text"
+                        id="poster_turno" 
+                        name="poster_turno"
+                        value="{{values.poster_turno}}{{data.poster_turno}}"
+                        {{#formErrors.poster_turno.msg}}
+                        class="input-error"
+                        {{/formErrors.poster_turno.msg}}
+                    >
+                    {{#formErrors.poster_turno.msg}}
+                    <p class="error-inline">{{formErrors.poster_turno.msg}}</p>
+                    {{/formErrors.poster_turno.msg}}
+                </label>
+                <div class="form-success mt-1">
+                    <p>Confirmo que estou no Pôster nº {{data.poster_numero}}, no turno {{data.poster_turno}} do dia {{day}}</p>
+                </div>
+                <div class="form-btns mt-1">
+                    <a href="#" class="btn-secondary w-100" style="text-align: center;" onclick="document.getElementById('form-checkin').submit()">Confirmar e fazer Checkin</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<main class="article">
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <nav class="nav-article">
+        <ul>
+           <div class="flex-center">
+            <li class="first-item"><a href="/user/myArticles"><img class="mr-2" src="/svg/icon_arrow.svg" alt="" onload="SVGInject(this)">Voltar</a></li>
+            <li><a onclick="showModal('.modal-checkin')" >Checkin</a></li>
+            
+           </div>
+            <div class="flex-center trash">
+                <!---
+                <li><a href="/admin/article/del/{{data.ano}}/{{data._id}}"><img src="/svg/icon_trash.svg" alt="" onload="SVGInject(this)"></a></li>
+                -->
+            </div>
+            
+        </ul>
+        
+        
+    </nav>
+    
+    {{>public/partials/article}}
+
+</main>
+
+
+{{>private/partials/body-end}}
+<script>
+    insertEdital('select[name="edital"]')
+    insertInstituicao('select[name="instituicao"]')
+    insertGrandeArea('select[name="grande_area"]')
+    insertSubarea('select[name="subarea"]')
+    insertPremiacao('select[name="premio"]')
+
+    insertResumoStatus('select[name="resumo_status"]')
+    insertPosterStatus('select[name="poster_status"]')
+
+
+    countCaracAndInserValue('input[name="resumo_titulo"]','#input-span-resumo_titulo')
+    countCaracAndInserValue('textarea[name="resumo_introducao"]','#textarea-span-resumo_introducao')
+    countCaracAndInserValue('textarea[name="resumo_metodologia"]','#textarea-span-resumo_metodologia')
+    countCaracAndInserValue('textarea[name="resumo_resultado"]','#textarea-span-resumo_resultado')
+    countCaracAndInserValue('textarea[name="resumo_conclusao"]','#textarea-span-resumo_conclusao')
+    countCaracAndInserValue('textarea[name="palavras_chaves"]','#textarea-span-palavras_chaves')
+    countCaracAndInserValue('textarea[name="colaboradores"]','#textarea-span-colaboradores')
+
+
+
+</script>
+{{# modal_dadosGerais }}
+    <script>
+        showModal('.modal')        
+    </script>
+{{/ modal_dadosGerais }}
+

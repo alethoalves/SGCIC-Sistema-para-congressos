@@ -1,0 +1,61 @@
+.modal{
+    background: rgba(252, 252, 252, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    transition: .8s ease;
+    overflow-y: scroll;
+    .close{
+        display: flex;
+        justify-content:end;
+        align-items:flex-end;
+        cursor: pointer;
+        svg{
+            width: 18px;
+            height: 100%;
+            path{
+                transition: .4s ease;
+            }
+            &:hover{
+                path{
+                    stroke: $auxiliary-red;
+                }
+            }
+        }
+    }
+    .modal-card{
+        height: 100vh;
+        overflow-y: scroll;
+        padding: $gap-5;
+        width: 590px;
+        background-color: $white-pure;
+        border-radius: $gap-3;
+        box-shadow: 0px 51px 80px rgba(25, 66, 72, 0.08), 
+        0px 15.375px 24.1177px rgba(25, 66, 72, 0.0521271), 
+        0px 6.38599px 10.0172px rgba(25, 66, 72, 0.04), 
+        0px 2.30969px 3.62304px rgba(25, 66, 72, 0.0278729);
+        form{
+
+            display: flex;
+            flex-direction: column;
+            
+        }
+        @include responsive(xs){
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            box-shadow: none;
+            background: rgba(252, 252, 252, 0.78);
+            backdrop-filter: blur(10px);
+
+        }
+    }
+}

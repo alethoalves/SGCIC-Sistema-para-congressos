@@ -1,0 +1,139 @@
+a{
+    @include typeface-2(p2,desktop);
+    text-decoration: none;
+    color: $white;
+    transition: .5S ease;
+    &:hover{
+        color: $white;
+    }
+    @include responsive(s){
+        @include typeface-2(p3,mobile)
+    }
+}
+.link{
+    a{
+        padding: $gap-2 $gap-4;
+        @include responsive(s){
+            padding: $gap-2 $gap-3;
+        }
+        position: relative;
+        &::after{
+            position: absolute;
+            content: '';
+            width: 0%;
+            top: 90%;
+            left: 0;
+            height: 3px;
+            background-color: $secondary;
+            transition: .4s ease;
+            
+            
+        }
+        &:hover{
+            @include responsive(s){
+                color: $secondary;
+            }
+            &::after{
+                width: 100%; 
+                @include responsive(s){
+                    width: 0%;
+                }
+            }
+        }
+    }
+}
+.btn-navbar{
+    padding: $gap-2 $gap-4;
+    border: 2px solid $white-light;
+    border-radius: $gap-2;
+    transition: .3s ease;
+    &:hover{
+        border: 2px solid $secondary;
+    }
+    @include responsive(s){
+        font-size: 14px;
+        padding: $gap-1 $gap-3;
+    }
+}
+.btn-secondary{
+    display: inline-block;
+    cursor: pointer;
+    padding: $gap-2 $gap-4;
+    border: 2px solid $primary;
+    border-radius: $gap-2;
+    -webkit-border-radius:$gap-2;
+    transition: .3s ease;
+    color: $primary;
+    &:hover{
+        border: 2px solid $secondary;
+        color: $primary-medium;
+    }
+    @include responsive(s){
+        font-size: 14px;
+        padding: $gap-1 $gap-3;
+    }
+}
+.btn{
+    background-color: $secondary-medium;
+    border-radius: $gap-2;
+    cursor: pointer;
+    padding: 14px $gap-4;
+    box-shadow: 0px 3px 60px rgba(25, 66, 72, 0.14), 
+    0px 6.9632px 18.0882px rgba(25, 66, 72, 0.0912224), 
+    0px 2.38427px 7.51293px rgba(25, 66, 72, 0.07), 
+    0px 1.94738px 2.71728px rgba(25, 66, 72, 0.0487776);
+    transition: .3s ease;
+    color: $primary;
+    display: inline-block;
+    &:hover{
+        color: $primary-dark;
+        transform: scale(1.02);
+        box-shadow: 0px 3px 185px rgba(25, 66, 72, 0.24), 
+        0px 6.9632px 55.7721px rgba(25, 66, 72, 0.156381), 
+        0px 2.38427px 23.1649px rgba(25, 66, 72, 0.12), 
+        0px 1.94738px 8.37828px rgba(25, 66, 72, 0.0836187);
+    }
+    @include responsive(s){
+        font-size: 14px;
+        padding: 10px $gap-3;
+
+    }
+}
+.btn-reviewer{
+    position: relative;
+    span{
+        top: -7px;
+        right: -7px;
+        position: absolute;
+        padding: 5px;
+        color: $white-light;
+        background-color: $auxiliary-red-light;
+        border-radius: 50px;
+    }
+    @include responsive(xs){
+        text-align: center;
+        width: 100%;
+    }
+}
+.status-green{
+    color: $primary;
+    background-color: $secondary-light;
+    padding: 4px $gap-2;
+    border-radius: $gap-4;
+    @include responsive(s){
+        font-size: 12px;
+    } 
+    white-space: nowrap;   
+}
+.status-red{
+    color: $primary;
+    background-color: $auxiliary-red-light;
+    padding: 4px $gap-2;
+    border-radius: $gap-4;
+    @include responsive(s){
+        font-size: 12px;
+    }    
+    white-space: nowrap;   
+}
+
+

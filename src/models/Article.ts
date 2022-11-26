@@ -21,6 +21,7 @@ type ArticleType = {
     orientador_cpf: string,
     autor_nome: string,
     autor_cpf: string,
+    premio: string,
     co_autor_nome: string,
     co_autor_cpf: string,
     multiplos_autores_em: string,
@@ -36,7 +37,6 @@ type ArticleType = {
     poster_nota_3: number,
     poster_nota_4: number,
     poster_nota_5: number,
-    premio: string,
     justificativa: string,
     poster_inicio_avaliacao: string,
     poster_fim_avaliacao: string,
@@ -55,7 +55,8 @@ type ArticleType = {
     resumo_conclusao: string,
     resumo_conclusao_nota: number,
     palavras_chaves: string,
-    colaboradores: string
+    colaboradores: string,
+  
 }
 
 const schema = new Schema<ArticleType>({
@@ -78,6 +79,7 @@ const schema = new Schema<ArticleType>({
     orientador_cpf: String,
     autor_nome: String,
     autor_cpf: String,
+    premio: String,
     co_autor_nome: String,
     co_autor_cpf: String,
     multiplos_autores_em: String,
@@ -93,7 +95,6 @@ const schema = new Schema<ArticleType>({
     poster_nota_3: Number,
     poster_nota_4: Number,
     poster_nota_5: Number,
-    premio: String,
     justificativa: String,
     poster_inicio_avaliacao: String,
     poster_fim_avaliacao: String,
@@ -112,7 +113,8 @@ const schema = new Schema<ArticleType>({
     resumo_conclusao: String,
     resumo_conclusao_nota: Number,
     palavras_chaves: String,
-    colaboradores: String
+    colaboradores: String,
+    
 })
 
 const modelName: string = 'Article';
@@ -141,20 +143,96 @@ export const Article = {
         let dataArticle = articleModel.find({resumo_status:status,resumo_avaliador_cpf:cpf});
         return dataArticle
     },
+    getByStatusPosterAndCpf:async (status,cpf)=>{
+        let dataArticle = articleModel.find({poster_status:status,poster_avaliador_cpf:cpf});
+        return dataArticle
+    },
+    getByStatusAndYear:async (status,year)=>{
+        let dataArticle = articleModel.find({resumo_status:status,ano:year});
+        return dataArticle
+    },
+    getAllByYearAreaLessPosterArquivado:async (year,area)=>{
+        let dataArticle = articleModel.find(
+            {
+                grande_area:area,
+                ano:year,
+                $or: [{
+                    poster_status: 'Pôster aguardando checkin'
+                }, {
+                    poster_status: 'Pôster aguardando avaliação'
+                }, {
+                    poster_status: 'Pôster em avaliação'
+                }, {
+                    poster_status: 'Pôster avaliado'
+                }]
+            });
+        return dataArticle
+    },
+    getPosterAvaliadoForAwards:async (year,area)=>{
+        let dataArticle = articleModel.find(
+            {
+                grande_area:area,
+                ano:year,
+                poster_status: 'Pôster avaliado',
+                $or: [{
+                    premio: 'Menção honrosa'
+                }, {
+                    premio: 'Indicação a prêmio destaque'
+                }
+            ]
+            });
+        return dataArticle
+    },
     search:async (data,value)=>{
         return data.filter(item=>{
             return (
-                item.autor_nome.toLowerCase().indexOf(value.toLowerCase()) >-1 
+                item.premio?.toLowerCase().trim() == value?.toLowerCase().trim()
                 ||
-                item.resumo_titulo.toLowerCase().indexOf(value.toLowerCase()) >-1 
+                item.autor_nome?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
                 ||
-                item.orientador_nome.toLowerCase().indexOf(value.toLowerCase()) >-1 
+                item.resumo_titulo?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
                 ||
-                item.orientador_cpf.toLowerCase().indexOf(value.toLowerCase()) >-1 
+                item.orientador_nome?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
                 ||
-                item.autor_cpf.toLowerCase().indexOf(value.toLowerCase()) >-1 
+                item.orientador_cpf?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
                 ||
-                item.resumo_status.toLowerCase().indexOf(value.toLowerCase()) >-1 
+                item.autor_cpf?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
+                ||
+                item.resumo_status?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1 
+                ||
+                item.poster_status?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1
+                ||
+                item.poster_numero == parseInt(value)
+                ||
+                item.edital?.toLowerCase().trim().indexOf(value.toLowerCase().trim()) >-1
+                )
+        })
+    },
+    filterByArea:async (data,value)=>{
+        return data.filter(item=>{
+            return (
+                item.grande_area?.indexOf(value) >-1 
+                )
+        })
+    },
+    filterBySubarea:async (data,value)=>{
+        return data.filter(item=>{
+            return (
+                item.subarea?.indexOf(value) >-1 
+                )
+        })
+    },
+    filterByPosterTurno:async (data,value)=>{
+        return data.filter(item=>{
+            return (
+                item.poster_turno?.indexOf(value) >-1 
+                )
+        })
+    },
+    filterByPosterEdital:async (data,value)=>{
+        return data.filter(item=>{
+            return (
+                item.edital?.indexOf(value) >-1 
                 )
         })
     },
@@ -299,6 +377,7 @@ export const Article = {
         return dataArticle
     },
     getManyByYear:async (year)=>{
+        
         let dataArticle = articleModel.find({ano:year});
         return dataArticle
     },
@@ -322,15 +401,29 @@ export const Article = {
         obj.date_modified = dateNow.toString();
         await articleModel.create(obj)
     },
-    updateArticle:async (obj,userName)=>{
-        let dateNow = new Date()
+    updateViews:async (obj)=>{
+        /** 
         if(!obj.poster_status){
             obj.poster_status="Pôster aguardando checkin";
         }
         if(!obj.resumo_status){
             obj.resumo_status="Resumo aguardando avaliação";
         }
+        */
         
+        await articleModel.findOneAndUpdate({_id:obj._id}, obj);
+        
+    },
+    updateArticle:async (obj,userName)=>{
+        let dateNow = new Date()
+        /** 
+        if(!obj.poster_status){
+            obj.poster_status="Pôster aguardando checkin";
+        }
+        if(!obj.resumo_status){
+            obj.resumo_status="Resumo aguardando avaliação";
+        }
+        */
         obj.name_modifier = userName;
         obj.date_modified = dateNow.toString();
         
@@ -342,7 +435,7 @@ export const Article = {
         let dataArticle = await articleModel.findOne({
             _id:id
         });
-        formArticleConstructor.insertValuesAndErrorMsg(schema,dataArticle)
+        //formArticleConstructor.insertValuesAndErrorMsg(schema,dataArticle)
         return dataArticle
     },
     getById:async (id)=>{
@@ -360,11 +453,11 @@ export const Article = {
         });
         if(dataArticle!=undefined){
             if(dataArticle.instituicao=="UNB"){
-                schema = formArticleConstructor.edit_meuResumo_unb();
+                //schema = formArticleConstructor.edit_meuResumo_unb();
             }else{
-                 schema = await formArticleConstructor.edit_meuResumo_externo();
+                 //schema = await formArticleConstructor.edit_meuResumo_externo();
             }
-            formArticleConstructor.insertValuesAndErrorMsg(schema,dataArticle)
+            //formArticleConstructor.insertValuesAndErrorMsg(schema,dataArticle)
         };
         return dataArticle
     },

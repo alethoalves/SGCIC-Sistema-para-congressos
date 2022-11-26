@@ -21,7 +21,7 @@ export const FormAuthValidator = {
                     max:11
                 }
             },
-            errorMessage:'CPF deve ter apenas 11 caracteres.'
+            errorMessage:'CPF deve ter 11 caracteres.'
 
         },
         password:{notEmpty:true,errorMessage:'Digite uma senha!'}
@@ -47,7 +47,7 @@ export const FormAuthValidator = {
                     max:11
                 }
             },
-            errorMessage:'CPF deve ter apenas 11 caracteres.'
+            errorMessage:'CPF deve ter 11 caracteres.'
 
         },
         vinculo_institucional:{
@@ -56,6 +56,19 @@ export const FormAuthValidator = {
             errorMessage:"Selecione a instituição na qual você está vinculado."
         },
         password:{notEmpty:true,errorMessage:'Digite uma senha!'}
+    }),
+    signinReviewer:checkSchema({
+        cpf:{
+            trim:true,
+            isLength:{
+                options:{
+                    min:11,
+                    max:11
+                }
+            },
+            errorMessage:'CPF deve ter 11 caracteres.'
+
+        }
     }),
     signin:checkSchema({
         cpf:{
@@ -66,7 +79,7 @@ export const FormAuthValidator = {
                     max:11
                 }
             },
-            errorMessage:'CPF deve ter apenas 11 caracteres.'
+            errorMessage:'CPF deve ter 11 caracteres.'
 
         },
         password:{notEmpty:true,errorMessage:'Digite uma senha!'}

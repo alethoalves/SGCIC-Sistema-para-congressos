@@ -31,6 +31,7 @@
     "copyfiles": "^2.4.1"
   },
   "dependencies": {
+    "@iconfu/svg-inject": "^1.2.3",
     "bcrypt": "^5.0.1",
     "connect-flash": "^0.1.1",
     "connect-redis": "^6.1.3",

@@ -1,0 +1,181 @@
+{{>private/partials/head}}
+{{>private/partials/header}}
+{{>private/partials/bg-circles}}
+<div class="modal">
+    <div class="modal-card">
+        <div class="close mb-1" onclick="closeModal('.modal') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div id="edition-form">
+            {{#notify_success}}
+            <div class="form-success">
+                <p>{{notify_success}}</p>
+            </div>
+            {{/notify_success}} 
+            {{#notify_error}}
+            <div class="form-error">
+                <p>{{notify_error}}</p>
+            </div>
+            {{/notify_error}}
+            <form action="/admin/editions" id="form-edition" method="POST">
+                <input
+                    class="display-none"
+                    type="text"
+                    id="searchValue" 
+                    name="searchValue"
+                    value="{{searchValue}}{{values.searchValue}}"
+                >
+                <label id="_id" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="_id" 
+                        name="_id"
+                        value="{{values._id}}"
+                    >
+                </label>
+                <label id="title" for="">
+                    <p>Título da edição:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite o nome do Congresso!" 
+                        id="title" 
+                        name="title"
+                        value="{{values.title}}"
+                        {{#formErrors.title.msg}}
+                        class="input-error"
+                        {{/formErrors.title.msg}}
+                    >
+                    {{#formErrors.title.msg}}
+                    <p class="error-inline">{{formErrors.title.msg}}</p>
+                    {{/formErrors.title.msg}}
+                </label>
+                <label id="smallTitle" for="">
+                    <p>Abreviação do título:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite a abreviação do título da edição" 
+                        id="smallTitle" 
+                        name="smallTitle"
+                        value="{{values.smallTitle}}"
+                        {{#formErrors.smallTitle.msg}}
+                        class="input-error"
+                        {{/formErrors.smallTitle.msg}}
+                    >
+                    {{#formErrors.smallTitle.msg}}
+                    <p class="error-inline">{{formErrors.smallTitle.msg}}</p>
+                    {{/formErrors.smallTitle.msg}}
+                </label>
+                
+                <div class="form-flex">
+                    <label id="year" for="" >
+                        <p>Ano da edição:</p>
+                        <input 
+                            type="number"
+                            placeholder="Digite o ano com 4 dígitos!" 
+                            id="year" 
+                            name="year"
+                            value="{{values.year}}"
+                            {{#formErrors.year.msg}}
+                            class="input-error"
+                            {{/formErrors.year.msg}}
+                        >
+                        {{#formErrors.year.msg}}
+                        <p class="error-inline">{{formErrors.year.msg}}</p>
+                        {{/formErrors.year.msg}}
+                    </label>
+                    <label for="">
+                        <p>Status de envio de Resumo</p>
+                        <select name="statusSubmit" id="">
+                            <option {{#values.statusSubmit}} selected {{/values.statusSubmit}} value="true">Aberto</option>
+                            <option {{^values.statusSubmit}} selected {{/values.statusSubmit}} value="false">Encerrado</option>
+                        </select>
+                    </label>
+                </div>
+                
+                <div class="form-btns mt-1">
+                    <a href="#" class="btn " onclick="document.getElementById('form-edition').submit()">Salvar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<main>
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <section class="pt-10 ml-3 mr-3">
+        <h4 id="title-edition" class="color-primary">Congresso de {{year}} - Artigos</h4>
+        <a  href="/admin/dashboard/poster/{{year}}" id="" class="btn mr-2">Dashboard</a>
+        <a  href="/admin/article/create/{{year}}" id="" class="btn-secondary mt-3">Criar Artigo</a>
+        <form class="search w-100" action="/admin/articles/{{year}}" method="GET">
+            <input type="text" value="{{searchValue}} " name="searchValue" placeholder="Busque aqui!">
+            <img src="/svg/icon-search.svg" alt="" onload="SVGInject(this)">
+        </form>
+        <div class="div-table">
+            <table >
+                <thead>
+                    <th>Instituição</th>
+                    <th>Área</th>
+                    <th>Autores</th>
+                    <th>Apresentação</th>
+                    <th>Status</th>
+                    <th>Premiação</th>
+                </thead>
+                <tbody>
+                    {{# data }}
+                    <tr>
+                        <td class="viewArticle" data-id="{{_id}}">{{instituicao}} <span class="display-block font-size-10">{{edital}}</span> </td>
+                        <td class="viewArticle" data-id="{{_id}}"> 
+                            {{grande_area}}
+                            <span class="display-block font-size-10">
+                                {{subarea}}
+
+                            </span>
+                            
+                        </td>
+                        <td class="viewArticle" data-id="{{_id}}">
+                            {{autor_nome}} (autor) <br>
+                            <span class="font-size-10">{{orientador_nome}} (orientador)</span>
+                        </td>
+                        <td class="viewArticle" data-id="{{_id}}">{{poster_turno}} - Pôster nº {{poster_numero}}</td>
+                        <td class="viewArticle" data-id="{{_id}}">
+                            <span class="status-green display-inline-block  mb-1">{{resumo_status}}</span>
+                            <span class="status-green display-inline-block">{{poster_status}}</span>
+                            
+                            
+                        </td>
+                        <td class="viewArticle" data-id="{{_id}}">{{premio}}</td>
+                        
+                    </tr>
+                    {{/ data }}
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+</main>
+
+<script>
+    if (document.querySelector('#title-edition') && document.querySelector('#title-edition').innerHTML == "Congresso de 1000 - Artigos") {
+        document.querySelector('#title-edition').innerHTML = "Lixeira"
+    }
+</script>
+
+{{>private/partials/body-end}}
+{{# modal }}
+    <script>
+        showModal('.modal')
+    </script>
+{{/ modal }}
+

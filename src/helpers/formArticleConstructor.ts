@@ -687,9 +687,11 @@ type arrayFindIndexObj = ({legend: string; id: string; labels: ({legend: string;
 function findIndexObj(array: arrayFindIndexObj,id: string,name: string) {
     return schemaArticle[schemaArticle.findIndex( e => e.id == id)].labels[schemaArticle[schemaArticle.findIndex( e => e.id == id)].labels.findIndex( e => e.name == name)]
 }
+
+/** 
 export let newArticle = async ()=>{
     let years = new Array;
-    let data = await Edition.getByStatus('Congresso online')
+    //let data = await Edition.getByStatus('Congresso online')
     data.forEach(e => {
         years.push(e.year)
     });
@@ -735,7 +737,7 @@ export const clearValuesAndErrorMsg = (schema)=>{
 };
 export let edit_meuResumo_externo = async ()=>{
     let years = new Array;
-    let data = await Edition.getByStatus('Congresso online')
+    //let data = await Edition.getByStatus('Congresso online')
     data.forEach(e => {
         years.push(e.year)
     });
@@ -889,4 +891,4 @@ export let edit_articleReviewer = async ()=>{
     findIndexObj(schemaArticle,"dados-resumo","colaboradores").view = false;
 
     return schemaArticle
-};
+};*/

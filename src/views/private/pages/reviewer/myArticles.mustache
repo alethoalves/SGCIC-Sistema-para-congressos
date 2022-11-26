@@ -1,0 +1,143 @@
+{{>private/partials/head}}
+{{>private/partials/header-reviewer}}
+{{>private/partials/bg-circles}}
+<div class="modal">
+    <div class="modal-card">
+        <div class="close mb-1" onclick="closeModal('.modal') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div id="reviewer-form">
+            <form method="POST" action="/user/reviewer/article" id="form-reviewer" >
+                
+                <label id="_id" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="_id" 
+                        name="_id"
+                        value="{{values._id}}"
+                    >
+                </label>
+                <label id="searchValue" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="searchValue" 
+                        name="searchValue"
+                        value="{{searchValue}}"
+                    >
+                </label>
+                <label id="year" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="year" 
+                        name="year"
+                        value="{{year}}"
+                    >
+                </label>
+                <div class="form-btns ">
+                    <a href="#" class="btn w-100" style="text-align: center;" onclick="document.getElementById('form-reviewer').submit()">Avaliar agora</a>
+                </div>
+            </form>
+        </div>
+        <div class="article" style="padding-left: 0px;padding-right: 0px;">
+            <a  class="card-article">
+                <div class="card-article-item-2">
+                    <h4 class="title color-primary mb-3" id="resumo_titulo">
+                    </h4>
+                </div>
+                <div class="card-article-item-3">
+                    <div class="item" style="margin-bottom: 0px;">
+                        <div class="time-line-item-icon">
+                            <img src="/svg/icon-map.svg" alt="" onload="SVGInject(this)">
+                        </div>
+                        <div class="time-line-item-content">
+                            <h5 class="color-primary">Pôster nº <strong id="poster_numero"></strong></h5>
+                            <p id="poster_turno"></p>
+                        </div>
+                    </div>
+                </div>
+                <p id="resumo_introducao"  class="mb-3 longText">
+                </p>
+                <p id="resumo_metodologia" class="mb-3 longText">
+                    {{data.resumo_metodologia}}
+                </p>
+                <p id="resumo_resultado" class="mb-3 longText">
+                    {{data.resumo_resultado}}
+                </p>
+                <p id="resumo_conclusao" class="mb-3 longText">
+                    {{data.resumo_conclusao}}
+                </p>
+            </a>
+        </div>
+            
+        
+    </div>
+</div>
+
+<main>
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <section class="pt-10 ml-3 mr-3">
+        <a  href="/user/reviewer/articles/{{year}}" id="" class="btn btn-reviewer">Pôsteres para avaliar </a>
+        <h5 class="color-primary my-2">Pôsteres que estou avaliando:</h5>
+        <div class="div-table">
+            <table >
+                <thead>
+                    <th>Área</th>
+                    <th>Título</th>
+                </thead>
+                <tbody>
+                    {{# data }}
+                    <tr class="linha">
+                        <td class="viewArticleReviewer" 
+                        data-id="{{_id}}" 
+                        
+                        >
+                        <span class="display-block color-primary">Pôster nº {{poster_numero}}</span>
+                        {{grande_area}} <span class="display-block font-size-10">{{subarea}}</span>
+                    </td>
+                        <td class="viewArticleReviewer" 
+                        data-id="{{_id}}" 
+                        
+                        >
+                        {{resumo_titulo}}
+                    </td>
+                    </tr>
+                    {{/ data }}
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+</main>
+
+<script>
+    if (document.querySelector('#title-edition') && document.querySelector('#title-edition').innerHTML == "Congresso de 1000 - Artigos") {
+        document.querySelector('#title-edition').innerHTML = "Lixeira"
+    }
+
+    document.querySelector('select[name="subarea"]').addEventListener('change',(e)=>{
+        document.querySelector('.search').submit()
+    })
+</script>
+
+{{>private/partials/body-end}}
+
+{{# modal }}
+    <script>
+        showModal('.modal')
+    </script>
+{{/ modal }}
+

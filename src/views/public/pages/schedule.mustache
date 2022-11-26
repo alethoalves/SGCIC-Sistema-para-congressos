@@ -1,0 +1,130 @@
+{{>public/partials/head}}
+{{>public/partials/header}}
+{{>public/partials/bg-circles}}
+<div class="modal">
+    <div class="modal-card">
+        <div class="close mb-1">
+            <a href="">
+                <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+            </a>
+        </div>
+        <form action="/schedule/{{year}}" id="form-filter" method="GET">
+            <label for="">
+                <p>Filtre por grande área:</p>
+                <select name="grande_area" id="">
+                    <option value="">Todas</option>
+                    {{#filter.grande_area}}
+                    <option selected value="{{filter.grande_area}}">{{filter.grande_area}}</option>
+                    {{/filter.grande_area}}
+                    <option value="Artes e Humanidades">Artes e Humanidades</option>
+                    <option value="Saúde e Vida">Saúde e Vida</option>
+                    <option value="Exatas e Tecnológicas">Exatas e Tecnológicas</option>
+                </select>
+            </label>
+            <label for="">
+                <p>Filtre por área:</p>
+                <select name="subarea" id="">
+                    <option value="">Todas</option>
+                    {{#filter.subarea}}
+                    <option selected value="{{filter.subarea}}">{{filter.subarea}}</option>
+                    {{/filter.subarea}}
+                    {{# listSubAreasUnique }}
+                    <option value="{{.}}">{{.}}</option>
+                    {{/ listSubAreasUnique }}}}
+                </select>
+            </label>
+            <label for="">
+                <p>Filtre por período:</p>
+                <select name="poster_turno" id="">
+                    <option value="">Todos</option>
+                    {{#filter.poster_turno}}
+                    <option selected value="{{filter.poster_turno}}">{{filter.poster_turno}}</option>
+                    {{/filter.poster_turno}}
+                    <option value="Matutino">Matutino</option>
+                    <option value="Vespertino">Vespertino</option>
+                </select>
+            </label>
+            <div class="form-btns mt-2">
+                <a class="btn-secondary mr-2" onclick=" clearValueForm('#form-filter')">Limpar filtros</a>
+                <a href="#" class="btn " onclick="document.getElementById('form-filter').submit()">Aplicar filtros</a>
+                
+            </div>
+        </form>
+    </div>
+</div>
+<main class="list-articles">
+        
+    <div class="header">
+        <h3 class="color-gray-4">Congresso de</h3>
+        <h1 class="color-primary mb-1">Iniciação Científica</h1>
+        <h5 class="secondary">Programação do 28º Congresso de IC da UnB e 19º do DF</h5>
+    </div>
+    <div class="filter">
+        <div class="filter-1 mr-1">
+            <a href="">
+                <img src="/svg/icon-filter.svg" alt="" onload="SVGInject(this)">
+            </a>
+        </div>
+        <div class="filter-2">
+            <p class="color-primary">Filtros utilizados:
+                
+                <span class="color-gray-4"><span class="bold">Grande área:</span> {{filter.grande_area}}{{^filter.grande_area}}Todos{{/filter.grande_area}}<span class="bold"> Subárea: </span>{{filter.subarea}}{{^filter.subarea}}Todos{{/filter.subarea}}<span class="bold"> Turno:</span>{{filter.poster_turno}}{{^filter.poster_turno}}Todos{{/filter.poster_turno}}</span>
+                
+            </p>
+            <a class="color-gray-3" href=""><p>Clique para editar os filtros!</p></a>
+        </div>
+    </div>
+
+    <form class="search" action="/schedule/{{year}}" method="GET">
+        <input type="text" name="searchValue" value="{{searchValue}}" placeholder="Busque aqui!">
+        <img src="/svg/icon-search.svg" alt="" onload="SVGInject(this)"> 
+    </form>
+    <div class="articles">
+        {{#dataArticle}}
+        <a href="/article/{{_id}}" class="card-article">
+            <div class="card-article-item-1">
+                <div class="keyword">
+                    {{grande_area}} - {{subarea}}
+                </div>
+            </div>
+            <div class="card-article-item-2">
+                <h4 class="title">
+                    {{resumo_titulo}}
+                </h4>
+                <p>
+                    {{autor_nome}} (autor){{#co_autor_nome}}{{co_autor_nome}} (co-autores){{/co_autor_nome}}, {{orientador_nome}} (orientador)
+                </p>
+            </div>
+            <div class="card-article-item-3">
+                <div class="item">
+                    <div class="time-line-item-icon">
+                        <img src="/svg/icon-date.svg" alt="" onload="SVGInject(this)">
+                    </div>
+                    <div class="time-line-item-content">
+                        <h5 class="color-primary">{{poster_dia}}</h5>
+                        <p>
+                            {{poster_turno}}
+                        </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="time-line-item-icon">
+                        <img src="/svg/icon-map.svg" alt="" onload="SVGInject(this)">
+                    </div>
+                    <div class="time-line-item-content">
+                        <h5 class="color-primary">Pôster nº <strong>{{poster_numero}}</strong></h5>
+                        <p>
+                        Centro Comunitário Athos Bulcão - Câmpus Universitário Darcy Ribeiro, UnB/DF
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {{/dataArticle}}
+    </div>
+   
+    
+</main>
+{{>public/partials/footer}}
+
+{{>public/partials/body-end}}

@@ -1,0 +1,369 @@
+{{>private/partials/head}}
+{{>private/partials/header}}
+{{>private/partials/bg-circles}}
+<div class="modal">
+    <div class="modal-card">
+        <div class="close mb-1" onclick="closeModal('.modal') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div id="edition-form">
+            {{#notify_success}}
+            <div class="form-success">
+                <p>{{notify_success}}</p>
+            </div>
+            {{/notify_success}} 
+            {{#notify_error}}
+            <div class="form-error">
+                <p>{{notify_error}}</p>
+            </div>
+            {{/notify_error}}
+            <form action="/admin/editions" id="form-edition" method="POST">
+                <input
+                    class="display-none"
+                    type="text"
+                    id="searchValue" 
+                    name="searchValue"
+                    value="{{searchValue}}{{values.searchValue}}"
+                >
+                <label id="_id" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="_id" 
+                        name="_id"
+                        value="{{values._id}}"
+                    >
+                </label>
+                <label id="title" for="">
+                    <p>Título da edição:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite o nome do Congresso!" 
+                        id="title" 
+                        name="title"
+                        value="{{values.title}}"
+                        {{#formErrors.title.msg}}
+                        class="input-error"
+                        {{/formErrors.title.msg}}
+                    >
+                    {{#formErrors.title.msg}}
+                    <p class="error-inline">{{formErrors.title.msg}}</p>
+                    {{/formErrors.title.msg}}
+                </label>
+                <label id="smallTitle" for="">
+                    <p>Abreviação do título:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite a abreviação do título da edição" 
+                        id="smallTitle" 
+                        name="smallTitle"
+                        value="{{values.smallTitle}}"
+                        {{#formErrors.smallTitle.msg}}
+                        class="input-error"
+                        {{/formErrors.smallTitle.msg}}
+                    >
+                    {{#formErrors.smallTitle.msg}}
+                    <p class="error-inline">{{formErrors.smallTitle.msg}}</p>
+                    {{/formErrors.smallTitle.msg}}
+                </label>
+                
+                <div class="form-flex">
+                    <label id="year" for="" >
+                        <p>Ano da edição:</p>
+                        <input 
+                            type="number"
+                            placeholder="Digite o ano com 4 dígitos!" 
+                            id="year" 
+                            name="year"
+                            value="{{values.year}}"
+                            {{#formErrors.year.msg}}
+                            class="input-error"
+                            {{/formErrors.year.msg}}
+                        >
+                        {{#formErrors.year.msg}}
+                        <p class="error-inline">{{formErrors.year.msg}}</p>
+                        {{/formErrors.year.msg}}
+                    </label>
+                    <label for="">
+                        <p>Status de envio de Resumo</p>
+                        <select name="statusSubmit" id="">
+                            <option {{#values.statusSubmit}} selected {{/values.statusSubmit}} value="true">Aberto</option>
+                            <option {{^values.statusSubmit}} selected {{/values.statusSubmit}} value="false">Encerrado</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <p>Iniciar avaliação de Pôsters?</p>
+                        <select name="statusPoster" id="">
+                            <option {{#values.statusPoster}} selected {{/values.statusPoster}} value="true">Sim</option>
+                            <option {{^values.statusPoster}} selected {{/values.statusPoster}} value="false">Não</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-flex">
+                    <label id="date_artes" for="" >
+                        <p>Data Artes:</p>
+                        <input 
+                            type="text"
+                            placeholder="DD.MM.AAAA" 
+                            id="date_artes" 
+                            name="date_artes"
+                            value="{{values.date_artes}}"
+                            {{#formErrors.date_artes.msg}}
+                            class="input-error"
+                            {{/formErrors.date_artes.msg}}
+                        >
+                        {{#formErrors.date_artes.msg}}
+                        <p class="error-inline">{{formErrors.date_artes.msg}}</p>
+                        {{/formErrors.date_artes.msg}}
+                    </label>
+                    <label id="date_saude" for="" >
+                        <p>Data Saúde:</p>
+                        <input 
+                            type="text"
+                            placeholder="DD.MM.AAAA" 
+                            id="date_saude" 
+                            name="date_saude"
+                            value="{{values.date_saude}}"
+                            {{#formErrors.date_saude.msg}}
+                            class="input-error"
+                            {{/formErrors.date_saude.msg}}
+                        >
+                        {{#formErrors.date_saude.msg}}
+                        <p class="error-inline">{{formErrors.date_saude.msg}}</p>
+                        {{/formErrors.date_saude.msg}}
+                    </label>
+                    <label id="date_exatas" for="" >
+                        <p>Data Exatas:</p>
+                        <input 
+                            type="text"
+                            placeholder="DD.MM.AAAA" 
+                            id="date_exatas" 
+                            name="date_exatas"
+                            value="{{values.date_exatas}}"
+                            {{#formErrors.date_exatas.msg}}
+                            class="input-error"
+                            {{/formErrors.date_exatas.msg}}
+                        >
+                        {{#formErrors.date_exatas.msg}}
+                        <p class="error-inline">{{formErrors.date_exatas.msg}}</p>
+                        {{/formErrors.date_exatas.msg}}
+                    </label>
+                </div>
+                <div class="form-flex">
+                    <label for="">
+                        <p>Liberar checkin Artes Matutino</p>
+                        <select name="checkinArtesMatutino" id="">
+                            <option {{#values.checkinArtesMatutino}} selected {{/values.checkinArtesMatutino}} value="true">Sim</option>
+                            <option {{^values.checkinArtesMatutino}} selected {{/values.checkinArtesMatutino}} value="false">Não</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <p>Liberar checkin Artes Vespertino</p>
+                        <select name="checkinArtesVespertino" id="">
+                            <option {{#values.checkinArtesVespertino}} selected {{/values.checkinArtesVespertino}} value="true">Sim</option>
+                            <option {{^values.checkinArtesVespertino}} selected {{/values.checkinArtesVespertino}} value="false">Não</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <p>Liberar checkin Saúde Matutino</p>
+                        <select name="checkinSaudeMatutino" id="">
+                            <option {{#values.checkinSaudeMatutino}} selected {{/values.checkinSaudeMatutino}} value="true">Sim</option>
+                            <option {{^values.checkinSaudeMatutino}} selected {{/values.checkinSaudeMatutino}} value="false">Não</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <p>Liberar checkin Saúde Vespertino</p>
+                        <select name="checkinSaudeVespertino" id="">
+                            <option {{#values.checkinSaudeVespertino}} selected {{/values.checkinSaudeVespertino}} value="true">Sim</option>
+                            <option {{^values.checkinSaudeVespertino}} selected {{/values.checkinSaudeVespertino}} value="false">Não</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <p>Liberar checkin Exatas Matutino</p>
+                        <select name="checkinExatasMatutino" id="">
+                            <option {{#values.checkinExatasMatutino}} selected {{/values.checkinExatasMatutino}} value="true">Sim</option>
+                            <option {{^values.checkinExatasMatutino}} selected {{/values.checkinExatasMatutino}} value="false">Não</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-flex">
+                    <label id="hour_am" for="" >
+                        <p>Período Matutino:</p>
+                        <input 
+                            type="text"
+                            placeholder="ex.: de 8h às 12h" 
+                            id="hour_am" 
+                            name="hour_am"
+                            value="{{values.hour_am}}"
+                            {{#formErrors.hour_am.msg}}
+                            class="input-error"
+                            {{/formErrors.hour_am.msg}}
+                        >
+                        {{#formErrors.hour_am.msg}}
+                        <p class="error-inline">{{formErrors.hour_am.msg}}</p>
+                        {{/formErrors.hour_am.msg}}
+                    </label>
+                    <label id="hour_pm" for="" >
+                        <p>Período Vespertino:</p>
+                        <input 
+                            type="text"
+                            placeholder="ex.: de 13h30 às 17h" 
+                            id="hour_pm" 
+                            name="hour_pm"
+                            value="{{values.hour_pm}}"
+                            {{#formErrors.hour_pm.msg}}
+                            class="input-error"
+                            {{/formErrors.hour_pm.msg}}
+                        >
+                        {{#formErrors.hour_pm.msg}}
+                        <p class="error-inline">{{formErrors.hour_pm.msg}}</p>
+                        {{/formErrors.hour_pm.msg}}
+                    </label>
+                </div>
+                <label id="local_abertura" for="" >
+                    <p>Local Cerimônia de Abertura:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite o endereço" 
+                        id="local_abertura" 
+                        name="local_abertura"
+                        value="{{values.local_abertura}}"
+                        {{#formErrors.local_abertura.msg}}
+                        class="input-error"
+                        {{/formErrors.local_abertura.msg}}
+                    >
+                    {{#formErrors.local_abertura.msg}}
+                    <p class="error-inline">{{formErrors.local_abertura.msg}}</p>
+                    {{/formErrors.local_abertura.msg}}
+                </label>
+                <label id="local_apresentacao" for="" >
+                    <p>Local Apresentação dos Pôsteres:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite o endereço" 
+                        id="local_apresentacao" 
+                        name="local_apresentacao"
+                        value="{{values.local_apresentacao}}"
+                        {{#formErrors.local_apresentacao.msg}}
+                        class="input-error"
+                        {{/formErrors.local_apresentacao.msg}}
+                    >
+                    {{#formErrors.local_apresentacao.msg}}
+                    <p class="error-inline">{{formErrors.local_apresentacao.msg}}</p>
+                    {{/formErrors.local_apresentacao.msg}}
+                </label>
+                <label id="local_encerramento" for="" >
+                    <p>Local Cerimônia de Encerramento:</p>
+                    <input 
+                        type="text"
+                        placeholder="Digite o endereço" 
+                        id="local_encerramento" 
+                        name="local_encerramento"
+                        value="{{values.local_encerramento}}"
+                        {{#formErrors.local_encerramento.msg}}
+                        class="input-error"
+                        {{/formErrors.local_encerramento.msg}}
+                    >
+                    {{#formErrors.local_encerramento.msg}}
+                    <p class="error-inline">{{formErrors.local_encerramento.msg}}</p>
+                    {{/formErrors.local_encerramento.msg}}
+                </label>
+                <div class="form-btns mt-1">
+                    <a href="#" class="btn " onclick="document.getElementById('form-edition').submit()">Salvar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<main>
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <section class="pt-10 ml-3 mr-3">
+        <h4 class="color-primary">Lista de Congressos</h4>
+        <a  onclick="newEdition(),showModal('.modal')" id="" class="btn-secondary mt-3">Criar Congresso</a>
+        <form class="search w-100" action="/admin/editions" method="GET">
+            <input type="text" value="{{searchValue}} " name="searchValue" placeholder="Busque aqui!">
+            <img src="/svg/icon-search.svg" alt="" onload="SVGInject(this)">
+        </form>
+        <div class="div-table">
+            <table >
+                <thead>
+                    <th>Ano</th>
+                    <th>Edição</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    {{# data }}
+                    <tr class="linha"
+                    >
+                        <td class="viewArticles" data-year="{{year}}">{{year}}</td>
+                        <td class="viewArticles" data-year="{{year}}"> {{title}}</td>
+                        <td class="viewArticles" data-year="{{year}}">
+                            {{#statusSubmit}}
+                            <span class="status-green">Recebendo resumos</span>
+                            {{/statusSubmit}}
+                            {{^statusSubmit}}
+                            <span class="status-red">Submissão encerrada</span>
+                            {{/statusSubmit}}
+                        </td>
+                        <td>
+                            <ul>
+                                
+                                
+                                <li class="btn-edit pb-2" 
+                                form-name="edition"
+                                data-id="{{_id}}" 
+                                data-title="{{title}}" 
+                                data-smallTitle="{{smallTitle}}" 
+                                data-year="{{year}}" 
+                                data-statusSubmit = "{{statusSubmit}}"
+                                data-hour_pm = "{{hour_pm}}"
+                                data-hour_am = "{{hour_am}}"
+                                data-date_artes = "{{date_artes}}"
+                                data-date_saude = "{{date_saude}}"
+                                data-date_exatas = "{{date_exatas}}"
+                                data-local_abertura = "{{local_abertura}}"
+                                data-local_apresentacao = "{{local_apresentacao}}"
+                                data-local_encerramento = "{{local_encerramento}}"
+                                >
+                                    <a class="color-primary">Editar</a>
+                                </li>
+                                <li class="">
+                                    <a class="color-primary" href="/admin/schedule/{{year}}">Gerar Programação</a>
+
+                                </li>
+                                <li class="mt-2">
+                                    <a class="auxiliary-red" href="/admin/editions/del/{{year}}">Excluir</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {{/ data }}
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+</main>
+
+
+
+{{>private/partials/body-end}}
+{{# modal }}
+    <script>
+        showModal('.modal')
+    </script>
+{{/ modal }}
+

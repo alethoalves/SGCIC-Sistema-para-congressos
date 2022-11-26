@@ -1,0 +1,93 @@
+//Gradients
+$linear-gradiente-primary:linear-gradient(220.94deg, #27555C 14.43%, #194248 85.28%);
+$boxshadow-light: 0px 51px 80px rgba(25, 66, 72, 0.08), 0px 15.375px 24.1177px rgba(25, 66, 72, 0.0521271), 0px 6.38599px 10.0172px rgba(25, 66, 72, 0.04), 0px 2.30969px 3.62304px rgba(25, 66, 72, 0.0278729);
+$boxshadow-medium: 0px 3px 6px rgba(99, 99, 99, 0.1);
+$boxshadow-btn:0px 43px 60px rgba(25, 66, 72, 0.14), 
+0px 12.9632px 18.0882px rgba(25, 66, 72, 0.0912224), 
+0px 5.38427px 7.51293px rgba(25, 66, 72, 0.07), 
+0px 1.94738px 2.71728px rgba(25, 66, 72, 0.0487776);
+$boxshadow-btn-hover:0px 43px 185px rgba(25, 66, 72, 0.24), 
+0px 12.9632px 55.7721px rgba(25, 66, 72, 0.156381), 
+0px 5.38427px 23.1649px rgba(25, 66, 72, 0.12), 
+0px 1.94738px 8.37828px rgba(25, 66, 72, 0.0836187);
+$boxshadow-icons:0px 51px 80px rgba(25, 66, 72, 0.08), 0px 15.375px 24.1177px rgba(25, 66, 72, 0.0521271), 0px 6.38599px 10.0172px rgba(25, 66, 72, 0.04), 0px 2.30969px 3.62304px rgba(25, 66, 72, 0.0278729);
+
+//Colors of project
+
+$primary:#194248; 
+$primary-light:#92A8AB;
+$primary-medium:#55757A;
+$primary-dark:#102F33;
+.color-primary{color: $primary}
+.color-light{color: $primary-light}
+.color-medium{color: $primary-medium}
+.color-dark{color: $primary-dark}
+
+$secondary:#60C185;
+$secondary-light:#B2E5C5;
+$secondary-medium:#88D4A5;
+$secondary-dark:#4FA570;
+.secondary{color: $secondary}
+.secondary-light{color: $secondary-light}
+.secondary-medium{color: $secondary-medium}
+.secondary-dark{color: $secondary-dark}
+
+
+
+$auxiliary-red: #E7587D;
+$auxiliary-red-light: #F1819E;
+$auxiliary-red-extralight: #e38ca3;
+$auxiliary-red-dark: #C64869;
+.auxiliary-red{color: $auxiliary-red}
+.auxiliary-red-light{color: $auxiliary-red-light}
+.auxiliary-red-dark{color: $auxiliary-red-dark}
+
+$auxiliary-blue: #5B89F4;
+$auxiliary-blue-light: #83A7FB;
+$auxiliary-blue-dark: #4A73D2;
+.auxiliary-blue{color: $auxiliary-blue}
+.auxiliary-blue-light{color: $auxiliary-blue-light}
+.auxiliary-blue-dark{color: $auxiliary-blue-dark}
+
+$auxiliary-yellow: #F6BD18;
+$auxiliary-yellow-light: #FED150;
+$auxiliary-yellow-dark: #D5A210;
+.auxiliary-yellow{color: $auxiliary-yellow}
+.auxiliary-yellow-light{color: $auxiliary-yellow-light}
+.auxiliary-yellow-dark{color: $auxiliary-yellow-dark}
+
+$white-pure:#FFFFFF;
+$white:#F7F7F7;
+$white-light:#FCFCFC;
+$white-dark:#EDF2F2;
+.white-pure{color: $white-pure}
+.white{color: $white}
+.white-light{color: $white-light}
+.white-dark{color: $white-dark}
+
+$black:#101212;
+$black-light:#272B2B;
+$black-dark:#000000;
+.black{color: $black}
+.black-light{color: $black-light}
+.black-dark{color: $black-dark}
+
+$gray-1:#454446;
+$gray-2:#555456;
+$gray-3:#666566;
+$gray-4:#767576;
+$gray-5:#868587;
+$gray-6:#969597;
+$gray-7:#A6A6A7;
+$gray-8:#f1f1f1;
+.color-gray-1{color:$gray-1}
+.color-gray-2{color:$gray-2}
+.color-gray-3{color:$gray-3}
+.color-gray-4{color:$gray-4}
+.color-gray-5{color:$gray-5}
+.color-gray-6{color:$gray-6}
+.color-gray-7{color:$gray-7}
+
+.bg-white-light{
+    background-color: $white-light;
+}

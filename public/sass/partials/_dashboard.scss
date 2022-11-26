@@ -1,0 +1,40 @@
+.dashboard-poster{
+    .posters{
+        height: 100%;
+    };
+    .card{
+        display: none;
+    }
+    flex: 1;    
+}
+.dashboard-subareas{
+    width: auto;
+    height: 70vh;
+    overflow-y: scroll;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none; 
+
+}
+.card{
+    padding: $gap-2;
+    background-color: $white-pure;
+    border: 1px solid $gray-8;
+    border-radius: $gap-1;
+    margin-bottom: $gap-2;
+    .qnt{
+        display: flex;
+        .item{
+            padding: 5px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: $gap-1;
+            margin: 3px;
+            width: 35px;
+            cursor: pointer;
+            p{
+                font-size: 10px;
+            }
+        }
+    }
+}

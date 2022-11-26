@@ -6,7 +6,7 @@ export const sessionOn = async (req: any,res: any,next: () => void)=> {
         return 
     }
     req.flash("notify_error","Faça o login para acessar o SGCIC")
-    res.redirect('/') 
+    res.redirect('/signin') 
 };//OK
 export const admin = async (req: any,res: any,next: () => void)=> {
     if(req.session.user != undefined){
@@ -16,7 +16,7 @@ export const admin = async (req: any,res: any,next: () => void)=> {
         }
     }
     res.render(
-        'pages/notAllowed') 
+        'public/pages/notAllowed') 
 };
 export const reviewer = async (req: any,res: any,next: () => void)=> {
     if(req.session.user != undefined){
@@ -26,5 +26,5 @@ export const reviewer = async (req: any,res: any,next: () => void)=> {
         }
     }
     res.render(
-        'pages/notAllowed') 
+        'public/pages/notAllowed') 
 }

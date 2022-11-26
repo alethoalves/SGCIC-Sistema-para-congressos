@@ -1,7 +1,7 @@
 # Gerenciador de congressos
 Esse projeto foi desenvolvido para automatizar e simplificar os processos relacionados à organização e ao gerenciamento do Congresso Anual de Iniciação Científica da Universidade de Brasília.
 
-O sistema já está em produção e pode ser acessado por meio do link: sgcic.com.br
+O sistema já está em produção e pode ser acessado por meio do link: www.sgcic.com.br
 
 ## Tecnologias utilizadas no desenvolvimento da aplicação
 - HTML
@@ -17,5 +17,5 @@ O sistema já está em produção e pode ser acessado por meio do link: sgcic.co
 `npm install`
 
 ## Para rodar o projeto 
-`npm run start-dev`
+`npm run startdev`
 

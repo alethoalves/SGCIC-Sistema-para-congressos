@@ -1,0 +1,174 @@
+{{>private/partials/head}}
+{{>private/partials/header-reviewer}}
+{{>private/partials/bg-circles}}
+<div class="modal">
+    <div class="modal-card">
+        <div class="close" onclick="closeModal('.modal') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div id="reviewer-form">
+            <form method="POST" action="/user/reviewer/article" id="form-reviewer" >
+                
+                <label id="_id" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="_id" 
+                        name="_id"
+                        value="{{values._id}}"
+                    >
+                </label>
+                <label id="searchValue" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="searchValue" 
+                        name="searchValue"
+                        value="{{searchValue}}"
+                    >
+                </label>
+                <label id="year" for="">
+                    <input 
+                        class="display-none"
+                        type="text"
+                        id="year" 
+                        name="year"
+                        value="{{year}}"
+                    >
+                </label>
+                <div class="form-btns " style="margin-top: -10px ;">
+                    <a href="#" class="btn w-100 mb-3" style="text-align: center;" onclick="document.getElementById('form-reviewer').submit()">Avaliar agora</a>
+                </div>
+            </form>
+        </div>
+        <div class="article" style="padding-left: 0px;padding-right: 0px; background-color: transparent;">
+            <a  class="card-article">
+                <div class="card-article-item-2">
+                    <h4 class=" color-primary mb-3" id="resumo_titulo">
+                    </h4>
+                </div>
+                <div class="card-article-item-3">
+                    <div class="item" style="margin-bottom: 0px;">
+                        <div class="time-line-item-icon">
+                            <img src="/svg/icon-map.svg" alt="" onload="SVGInject(this)">
+                        </div>
+                        <div class="time-line-item-content">
+                            <h5 class="color-primary">Pôster nº <strong id="poster_numero"></strong></h5>
+                            <p id="poster_turno"></p>
+                        </div>
+                    </div>
+                </div>
+                <p id="resumo_introducao"  class="mb-3 longText">
+                    {{data.resumo_introducao}}
+                </p>
+                <p id="resumo_metodologia" class="mb-3 longText">
+                    {{data.resumo_metodologia}}
+                </p>
+                <p id="resumo_resultado" class="mb-3 longText">
+                    {{data.resumo_resultado}}
+                </p>
+                <p id="resumo_conclusao" class="mb-3 longText">
+                    {{data.resumo_conclusao}}
+                </p>
+            </a>
+        </div>
+            
+        
+    </div>
+</div>
+
+<main>
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <section class="pt-10 ml-3 mr-3">
+        <h5 class="mb-1 color-primary">Orientações</h5>
+        <div class="">
+            <p>Passo 1 - Escolha um Pôster para avaliar;</p>
+            <span class="display-block font-size-10 mb-1">Utilize o filtro para facilitar a escolha.</span>
+            <p class="mb-1">Passo 2 - Clique no Pôster para visualizar o resumo</p>
+            <p>Passo 3 - Clique em Avaliar agora</p>
+            <span class="display-block font-size-10 mb-1">Caso desista de avaliar o pôster, devolva-o.</span>
+            <p class="mb-1">Passo 4 - Avalie a apresentação do pôster</p>
+            <p class="mb-1">Passo 5 - Finalize a avaliação</p>
+            <p class="mb-1">Passo 6 - Escolha outro pôster e repita os passos acima!</p>
+        </div>
+        <h5 class="color-primary mt-3 mb-1">Pôsteres aguardando avaliação</h5>
+        <form class="search w-100" style="margin: 0 ;" action="/user/reviewer/articles/{{year}}" method="GET">
+            <label id="subarea" class="w-100"  for="">
+                <p>Filtre por área:</p>
+                <select name="subarea" id="subarea">
+                    {{#searchValue}}
+                    <option value="{{searchValue}}">{{searchValue}}</option>
+                    {{/searchValue}}
+                    <option value="">Todas as áreas</option>
+                    {{#arrayUniqueSubareas}}
+                    <option value="{{.}}">{{.}}</option>
+                    {{/arrayUniqueSubareas}}
+                    
+                </select>
+            </label>
+            
+        </form>
+        <div class="div-table">
+            <table >
+                <thead>
+                    <th style="border-radius:12px 12px 0 0 ;">Título</th>
+                </thead>
+                <tbody>
+                    {{# data }}
+                    <tr class="linha">
+                        <td class="btn-edit td-line-bottom" 
+                        data-id="{{_id}}" 
+                        form-name="articleReviewer" 
+                        data-resumo_titulo="{{resumo_titulo}}" 
+                        data-poster_numero="{{poster_numero}}" 
+                        data-poster_turno="{{poster_turno}}"
+                        data-resumo_introducao="{{resumo_introducao}}"
+                        data-resumo_metodologia="{{resumo_metodologia}}"
+                        data-resumo_resultado="{{resumo_resultado}}"
+                        data-resumo_conclusao="{{resumo_conclusao}}"
+                        >
+                        <span class="color-primary">{{resumo_titulo}}</span>
+                        <span class="display-block font-size-10">Pôster nº {{poster_numero}}</span>
+                        <span class="font-size-10">{{grande_area}} </span>
+                        <span class="display-block font-size-10 mb-2">{{subarea}}</span>
+                        
+                        
+                    </td>
+                    </tr>
+                    {{/ data }}
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+</main>
+
+<script>
+    if (document.querySelector('#title-edition') && document.querySelector('#title-edition').innerHTML == "Congresso de 1000 - Artigos") {
+        document.querySelector('#title-edition').innerHTML = "Lixeira"
+    }
+
+    document.querySelector('select[name="subarea"]').addEventListener('change',(e)=>{
+        document.querySelector('.search').submit()
+    })
+</script>
+
+{{>private/partials/body-end}}
+
+{{# modal }}
+    <script>
+        showModal('.modal')
+    </script>
+{{/ modal }}
+

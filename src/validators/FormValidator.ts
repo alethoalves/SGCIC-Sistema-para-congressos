@@ -316,10 +316,60 @@ export const FormValidator = {
             trim:true,
             errorMessage:"Digite o título do congresso",
         },
-        status:{
+        smallTitle:{
             notEmpty:true,
             trim:true,
-            errorMessage:"Defina o status do congresso",
+            errorMessage:"Digite o título do congresso",
+        },
+        date_artes:{
+            notEmpty:true,
+            trim:true,
+            errorMessage:"Digite a data de apresentação de Artes e Humanidades",
+        },
+        date_saude:{
+            notEmpty:true,
+            trim:true,
+            errorMessage:"Digite a data de apresentação de Saúde e Vida",
+        },
+        date_exatas:{
+            notEmpty:true,
+            trim:true,
+            errorMessage:"Digite a data de apresentação de Exatas e Tecnológicas",
+        },
+        hour_am:{
+            notEmpty:true,
+            trim:true,
+            errorMessage:"Digite o período da apresentação matutino",
+        },
+        hour_pm:{
+            notEmpty:true,
+            trim:true,
+            errorMessage:"Digite o período da apresentação vespertino",
+        }
+    }),
+    user:checkSchema({
+        name:{
+            trim:true,
+            notEmpty:true,
+            errorMessage:'Digite seu nome.'
+        },
+        email:{
+            notEmpty:true,
+            trim:true,
+            isEmail:true,
+            normalizeEmail:true,
+            errorMessage:'Digite um email válido.'
+        },
+        cpf:{
+            trim:true,
+            isLength:{
+                options:{
+                    min:11,
+                    max:11
+                }
+            },
+            errorMessage:'CPF deve ter 11 caracteres.'
+
         }
     }),
     editMyProfile:checkSchema({

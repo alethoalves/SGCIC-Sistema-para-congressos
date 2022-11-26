@@ -1,0 +1,41 @@
+.success_float,.error_float{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9999;
+    transition: .5s ease;
+    padding: $gap-3 $gap-4;
+    border-radius: $gap-1;
+    opacity: 1;
+    top: 75px;
+    right: $gap-2;
+    left: $gap-2;
+    cursor: pointer;
+
+    span{
+        color: $primary;
+        padding-right: $gap-4;
+
+    }
+    svg{
+        width: 17px;
+        path{
+            stroke: $white-pure;
+        }
+        
+    }
+}
+.success_float{
+    background-color: $secondary-light;
+    span{
+        color: $primary;
+    }
+}
+.error_float{
+    background-color: $auxiliary-red-light;
+    transition: .5s ease;
+    span{
+        color: $primary;
+    }
+}

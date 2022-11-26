@@ -1,0 +1,66 @@
+<main class="article">
+    <a  class="card-article">
+        <div class="card-article-item-1">
+            <div class="keyword">
+                {{data.grande_area}} - {{data.subarea}}
+            </div>
+        </div>
+        <div class="card-article-item-2">
+            <h4 class="title">
+                {{data.resumo_titulo}}
+            </h4>
+            <p>
+                por <strong>{{data.autor_nome}}</strong>
+            </p>
+            <p>
+                sob orientação de <strong>{{data.orientador_nome}}</strong>
+            </p>
+            <p class="text-wight-light mt-3 small-none">
+                {{nameEdition}}
+            </p>
+            <p class="text-wight-light small-none">
+                ISBN -
+            </p>
+        </div>
+        <div class="card-article-item-3">
+            {{#data.poster_turno}}
+            <div class="item">
+                <div class="time-line-item-icon">
+                    <img src="/svg/icon-map.svg" alt="" onload="SVGInject(this)">
+                </div>
+                <div class="time-line-item-content">
+                    <h5 class="color-primary">Apresentação presencial - Pôster nº <strong>{{data.poster_numero}}</strong></h5>
+                    <p>
+                        {{day}} <br>
+                        Turno {{data.poster_turno}} {{hour}} <br>
+                        {{local_apresentacao}}
+                    </p>
+                </div>
+            </div>
+            {{/data.poster_turno}}
+        </div>
+        <div class="card-article-item-4 mb-4">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{codVideo}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p class="mb-3 longText">
+            {{data.resumo_introducao}}
+        </p>
+        <p class="mb-3 longText">
+            {{data.resumo_metodologia}}
+        </p>
+        <p class="mb-3 longText">
+            {{data.resumo_resultado}}
+        </p>
+        <p class="mb-3 longText">
+            {{data.resumo_conclusao}}
+        </p>
+        <p class="mb-3">
+            <strong>Palavras-chaves</strong> <br>
+            {{data.palavras_chaves}}
+        </p>
+        <p class="mb-3">
+            <strong>Colaboradores</strong> <br>
+            {{data.colaboradores}}
+        </p>
+    </a>
+</main>

@@ -1,0 +1,70 @@
+{{>public/partials/head}}
+{{>public/partials/bg-circles}}
+    <main class="flex-center height-100vh">
+        
+        <div class="signin">
+            <div class="header mb-4">
+                <h3 class="color-gray-4">Congresso de</h3>
+                <h1 class="color-primary ">Iniciação Científica</h1>
+                <h5 class="secondary">SGCIC - v 2.0</h5>
+            </div>
+            {{#notify_success}}
+            <div class="form-success">
+                <p>{{notify_success}}</p>
+            </div>
+            {{/notify_success}} 
+            {{#notify_error}}
+            <div class="form-error">
+                <p>{{notify_error}}</p>
+            </div>
+            {{/notify_error}}
+
+            
+            <form action="/signin" id="form" method="POST">
+                <label id="cpf" for="">
+                    <p>Digite seu CPF:</p>
+                    <input 
+                        type="number"
+                        placeholder="Apenas números!" 
+                        id="cpf" 
+                        name="cpf"
+                        value="{{values.cpf}}{{cpf}}"
+                        {{#formErrors.cpf.msg}}
+                        class="input-error"
+                        {{/formErrors.cpf.msg}}
+                    >
+                    {{#formErrors.cpf.msg}}
+                    <p class="error-inline">{{formErrors.cpf.msg}}</p>
+                    {{/formErrors.cpf.msg}}
+                    
+                </label>
+                <label id="password" for="">
+                    <p>Digite sua senha:</p>
+                    <input 
+                        type="password"
+                        name="password" 
+                        value="{{values.password}}"
+                        id="" 
+                        placeholder="******"
+                        {{#formErrors.password.msg}}
+                        class="input-error"
+                        {{/formErrors.password.msg}}
+                        >
+                    {{#formErrors.password.msg}}
+                    <p class="error-inline">{{formErrors.password.msg}}</p>
+                    {{/formErrors.password.msg}}
+                    <span>Esqueceu sua senha? <a href="/resetPassword">Resetar</a></span>
+                </label>
+                
+                <div class="form-btns mt-1">
+                    <a href="/signup" class="btn-secondary mr-2">Cadastrar-se</a>
+                    <a href="#" class="btn " onclick="document.getElementById('form').submit()">Entrar</a>
+                </div>
+            </form>
+        </div>
+
+        
+    </main>
+
+
+{{>public/partials/body-end}}

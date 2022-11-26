@@ -1,0 +1,455 @@
+{{>private/partials/head}}
+{{>private/partials/header-user}}
+{{>private/partials/bg-circles}}
+<div class="modal modal-newArticle">
+    <div class="modal-card">
+        <div class="close mb-1" onclick="closeModal('.modal') ">
+            <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+        </div>
+        <div id="edition-form">
+            {{#notify_success}}
+            <div class="form-success">
+                <p>{{notify_success}}</p>
+            </div>
+            {{/notify_success}}
+            <div class="form-error form-error-UnB">
+                <p>
+                Atenção!<br>
+                Se você é aluno da UnB, não preencha esse formulário. Se seu resumo não estiver pré cadastrado no sistema, entre em contato com o proic pelo email proic@unb.br
+                </p>
+            </div>
+            {{#notify_error}}
+            <div class="form-error">
+                <p>{{notify_error}}</p>
+            </div>
+            {{/notify_error}}
+            <form action="/user/article/create" id="form-edition" method="POST">
+                <input
+                    class="display-none"
+                    type="text"
+                    id="searchValue" 
+                    name="searchValue"
+                    value="{{searchValue}}{{values.searchValue}}"
+                >
+                
+                <div class="form-flex">
+                    <label id="ano" for="">
+                        <p>Edição do Congresso:</p>
+                        <input 
+                            readonly
+                            type="number"
+                            id="ano" 
+                            name="ano"
+                            value="{{year}}{{values.ano}}{{data.ano}}"
+                            {{#formErrors.ano.msg}}
+                            class="input-error"
+                            {{/formErrors.ano.msg}}
+                        >
+                        {{#formErrors.ano.msg}}
+                        <p class="error-inline">{{formErrors.ano.msg}}</p>
+                        {{/formErrors.ano.msg}}
+                    </label>
+                    <label id="instituicao" for="">
+                        <p>Instituição de ensino:</p>
+                        <select name="instituicao" id="instituicao">
+                            {{#data.instituicao}}
+                            <option value="{{data.instituicao}}">{{data.instituicao}}</option>
+                            {{/data.instituicao}}
+                            {{^data.instituicao}}
+                            <option value="{{values.instituicao}}">{{values.instituicao}}</option>
+                            {{/data.instituicao}}
+                            
+                        </select>
+                        {{#formErrors.instituicao.msg}}
+                        <p class="error-inline">{{formErrors.instituicao.msg}}</p>
+                        {{/formErrors.instituicao.msg}}
+                    </label>
+                    <label id="edital" for="">
+                        <p>Edital:</p>
+                        <select name="edital" id="edital">
+                            {{#data.edital}}
+                            <option value="{{data.edital}}">{{data.edital}}</option>
+                            {{/data.edital}}
+                            {{^data.edital}}
+                            <option value="{{values.edital}}">{{values.edital}}</option>
+                            {{/data.edital}}
+                            
+                        </select>
+                        {{#formErrors.edital.msg}}
+                        <p class="error-inline">{{formErrors.edital.msg}}</p>
+                        {{/formErrors.edital.msg}}
+                    </label>
+                </div>
+                <div class="form-flex">
+                    <label id="grande_area" for="">
+                        <p>Grande Área:</p>
+                        <select name="grande_area" id="grande_area">
+                            {{#data.grande_area}}
+                            <option value="{{data.grande_area}}">{{data.grande_area}}</option>
+                            {{/data.grande_area}}
+                            {{^data.grande_area}}
+                            <option value="{{values.grande_area}}">{{values.grande_area}}</option>
+                            {{/data.grande_area}}
+                            
+                        </select>
+                        {{#formErrors.grande_area.msg}}
+                        <p class="error-inline">{{formErrors.grande_area.msg}}</p>
+                        {{/formErrors.grande_area.msg}}
+                    </label>
+                    <label id="subarea" for="">
+                        <p>Subárea:</p>
+                        <select name="subarea" id="subarea">
+                            {{#data.subarea}}
+                            <option value="{{data.subarea}}">{{data.subarea}}</option>
+                            {{/data.subarea}}
+                            {{^data.subarea}}
+                            <option value="{{values.subarea}}">{{values.subarea}}</option>
+                            {{/data.subarea}}
+                            
+                        </select>
+                        {{#formErrors.subarea.msg}}
+                        <p class="error-inline">{{formErrors.subarea.msg}}</p>
+                        {{/formErrors.subarea.msg}}
+                    </label>
+                </div>
+                <div class="form-flex">
+                    <label id="orientador_nome" for="">
+                        <p>Nome do orientador:</p>
+                        <input 
+                            type="text"
+                            id="orientador_nome" 
+                            name="orientador_nome"
+                            value="{{values.orientador_nome}}{{data.orientador_nome}}"
+                            {{#formErrors.orientador_nome.msg}}
+                            class="input-error"
+                            {{/formErrors.orientador_nome.msg}}
+                        >
+                        {{#formErrors.orientador_nome.msg}}
+                        <p class="error-inline">{{formErrors.orientador_nome.msg}}</p>
+                        {{/formErrors.orientador_nome.msg}}
+                    </label>
+                    <label id="orientador_cpf" for="">
+                        <p>CPF do orientador:</p>
+                        <input 
+                            type="text"
+                            id="orientador_cpf" 
+                            name="orientador_cpf"
+                            value="{{values.orientador_cpf}}{{data.orientador_cpf}}"
+                            {{#formErrors.orientador_cpf.msg}}
+                            class="input-error"
+                            {{/formErrors.orientador_cpf.msg}}
+                        >
+                        {{#formErrors.orientador_cpf.msg}}
+                        <p class="error-inline">{{formErrors.orientador_cpf.msg}}</p>
+                        {{/formErrors.orientador_cpf.msg}}
+                    </label>
+                </div>
+                <div class="form-flex">
+                    <label id="autor_nome" for="">
+                        <p>Nome do autor:</p>
+                        <input 
+                            type="text"
+                            id="autor_nome" 
+                            name="autor_nome"
+                            value="{{values.autor_nome}}{{data.autor_nome}}"
+                            {{#formErrors.autor_nome.msg}}
+                            class="input-error"
+                            {{/formErrors.autor_nome.msg}}
+                        >
+                        {{#formErrors.autor_nome.msg}}
+                        <p class="error-inline">{{formErrors.autor_nome.msg}}</p>
+                        {{/formErrors.autor_nome.msg}}
+                    </label>
+                    <label id="autor_cpf" for="">
+                        <p>CPF do autor:</p>
+                        <input 
+                            type="text"
+                            id="autor_cpf" 
+                            name="autor_cpf"
+                            value="{{values.autor_cpf}}{{data.autor_cpf}}"
+                            {{#formErrors.autor_cpf.msg}}
+                            class="input-error"
+                            {{/formErrors.autor_cpf.msg}}
+                        >
+                        {{#formErrors.autor_cpf.msg}}
+                        <p class="error-inline">{{formErrors.autor_cpf.msg}}</p>
+                        {{/formErrors.autor_cpf.msg}}
+                    </label>
+                </div>
+                <div class="form-flex">
+                    <label id="co_autor_nome" for="">
+                        <p>Nome do co-autor:</p>
+                        <input 
+                            type="text"
+                            id="co_autor_nome" 
+                            name="co_autor_nome"
+                            value="{{values.co_autor_nome}}{{data.co_autor_nome}}"
+                            {{#formErrors.co_autor_nome.msg}}
+                            class="input-error"
+                            {{/formErrors.co_autor_nome.msg}}
+                        >
+                        {{#formErrors.co_autor_nome.msg}}
+                        <p class="error-inline">{{formErrors.co_autor_nome.msg}}</p>
+                        {{/formErrors.co_autor_nome.msg}}
+                    </label>
+                    <label id="co_autor_cpf" for="">
+                        <p>CPF do co-autor:</p>
+                        <input 
+                            type="text"
+                            id="co_autor_cpf" 
+                            name="co_autor_cpf"
+                            value="{{values.co_autor_cpf}}{{data.co_autor_cpf}}"
+                            {{#formErrors.co_autor_cpf.msg}}
+                            class="input-error"
+                            {{/formErrors.co_autor_cpf.msg}}
+                        >
+                        {{#formErrors.co_autor_cpf.msg}}
+                        <p class="error-inline">{{formErrors.co_autor_cpf.msg}}</p>
+                        {{/formErrors.co_autor_cpf.msg}}
+                    </label>
+                </div>
+                <label id="multiplos_autores_em" for="">
+                    <p>Alunos do Ensino Médio:</p>
+                    <input 
+                        type="text"
+                        id="multiplos_autores_em" 
+                        name="multiplos_autores_em"
+                        value="{{values.multiplos_autores_em}}{{data.multiplos_autores_em}}"
+                        {{#formErrors.multiplos_autores_em.msg}}
+                        class="input-error"
+                        {{/formErrors.multiplos_autores_em.msg}}
+                    >
+                    {{#formErrors.multiplos_autores_em.msg}}
+                    <p class="error-inline">{{formErrors.multiplos_autores_em.msg}}</p>
+                    {{/formErrors.multiplos_autores_em.msg}}
+                </label>
+                <label id="link_video" for="">
+                    <p>Link do vídeo de apresentação da pesquisa:</p>
+                    <input 
+                        type="url"
+                        placeholder="cole o link de compartilhamento do youtube" 
+                        id="link_video" 
+                        name="link_video"
+                        value="{{values.link_video}}{{data.link_video}}"
+                        {{#formErrors.link_video.msg}}
+                        class="input-error"
+                        {{/formErrors.link_video.msg}}
+                    >
+                    {{#formErrors.link_video.msg}}
+                    <p class="error-inline">{{formErrors.link_video.msg}}</p>
+                    {{/formErrors.link_video.msg}}
+                </label>
+                
+                <label id="resumo_titulo" for="">
+                    <p>Título: <span id="input-span-resumo_titulo"></span></p>
+                    
+                    <input 
+                        type="text"
+                        placeholder="Título do resumo" 
+                        id="resumo_titulo" 
+                        name="resumo_titulo"
+                        value="{{values.resumo_titulo}}{{data.resumo_titulo}}"
+                        {{#formErrors.resumo_titulo.msg}}
+                        class="input-error"
+                        {{/formErrors.resumo_titulo.msg}}
+                    >
+                    {{#formErrors.resumo_titulo.msg}}
+                    <p class="error-inline">{{formErrors.resumo_titulo.msg}}</p>
+                    {{/formErrors.resumo_titulo.msg}}
+                </label>
+                <label id="resumo_introducao" for="">
+                    <p>Introdução: <span id="textarea-span-resumo_introducao"></span></p>
+                    <textarea 
+                        name="resumo_introducao" 
+                        id="resumo_introducao" 
+                        placeholder="Digite a introdução (até 1000 caracteres)"
+                        {{#formErrors.resumo_introducao.msg}}
+                        class="input-error"
+                        {{/formErrors.resumo_introducao.msg}}
+                    >{{values.resumo_introducao}}{{data.resumo_introducao}}</textarea>
+                    {{#formErrors.resumo_introducao.msg}}
+                    <p class="error-inline">{{formErrors.resumo_introducao.msg}}</p>
+                    {{/formErrors.resumo_introducao.msg}}
+                </label>
+                <label id="resumo_metodologia" for="">
+                    <p>Metodologia: <span id="textarea-span-resumo_metodologia"></span></p>
+                    <textarea 
+                        name="resumo_metodologia" 
+                        id="resumo_metodologia" 
+                        placeholder="Digite a metodologia (até 1000 caracteres)" 
+                        {{#formErrors.resumo_metodologia.msg}}
+                        class="input-error"
+                        {{/formErrors.resumo_metodologia.msg}}
+                    >{{values.resumo_metodologia}}{{data.resumo_metodologia}}</textarea>
+                    {{#formErrors.resumo_metodologia.msg}}
+                    <p class="error-inline">{{formErrors.resumo_metodologia.msg}}</p>
+                    {{/formErrors.resumo_metodologia.msg}}
+                </label>
+                <label id="resumo_resultado" for="">
+                    <p>Resultado: <span id="textarea-span-resumo_resultado"></span></p>
+                    <textarea 
+                        name="resumo_resultado" 
+                        id="resumo_resultado" 
+                        placeholder="Digite o resultado (até 1000 caracteres)" 
+                        {{#formErrors.resumo_resultado.msg}}
+                        class="input-error"
+                        {{/formErrors.resumo_resultado.msg}}
+                    >{{values.resumo_resultado}}{{data.resumo_resultado}}</textarea>
+                    {{#formErrors.resumo_resultado.msg}}
+                    <p class="error-inline">{{formErrors.resumo_resultado.msg}}</p>
+                    {{/formErrors.resumo_resultado.msg}}
+                </label>
+                <label id="resumo_conclusao" for="">
+                    <p>Conclusão: <span id="textarea-span-resumo_conclusao"></span></p>
+                    <textarea 
+                        name="resumo_conclusao" 
+                        id="resumo_conclusao" 
+                        placeholder="Digite a conclusão (até 1000 caracteres)" 
+                        {{#formErrors.resumo_conclusao.msg}}
+                        class="input-error"
+                        {{/formErrors.resumo_conclusao.msg}}
+                    >{{values.resumo_conclusao}}{{data.resumo_conclusao}}</textarea>
+                    {{#formErrors.resumo_conclusao.msg}}
+                    <p class="error-inline">{{formErrors.resumo_conclusao.msg}}</p>
+                    {{/formErrors.resumo_conclusao.msg}}
+                </label>
+                <label id="palavras_chaves" for="">
+                    <p>Palavras-chaves: <span id="textarea-span-palavras_chaves"></span></p>
+                    <textarea 
+                        name="palavras_chaves" 
+                        id="palavras_chaves" 
+                        placeholder="Digite as palavras-chaves (até 255 caracteres)" 
+                        {{#formErrors.palavras_chaves.msg}}
+                        class="input-error"
+                        {{/formErrors.palavras_chaves.msg}}
+                    >{{values.palavras_chaves}}{{data.palavras_chaves}}</textarea>
+                    {{#formErrors.palavras_chaves.msg}}
+                    <p class="error-inline">{{formErrors.palavras_chaves.msg}}</p>
+                    {{/formErrors.palavras_chaves.msg}}
+                </label>
+                <label id="colaboradores" for="">
+                    <p>Colaboradores: <span id="textarea-span-colaboradores"></span></p>
+                    <textarea 
+                        name="colaboradores" 
+                        id="colaboradores" 
+                        placeholder="Digite os colaboradores, se houver (até 1000 caracteres)" 
+                        {{#formErrors.colaboradores.msg}}
+                        class="input-error"
+                        {{/formErrors.colaboradores.msg}}
+                    >{{values.colaboradores}}{{data.colaboradores}}</textarea>
+                    {{#formErrors.colaboradores.msg}}
+                    <p class="error-inline">{{formErrors.colaboradores.msg}}</p>
+                    {{/formErrors.colaboradores.msg}}
+                </label>
+                <div class="form-btns mt-1">
+                    <a href="#" class="btn " onclick="document.getElementById('form-edition').submit()">Salvar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<main>
+    {{#error_float}}
+    <div class="error_float" onclick="closeNotify('.error_float')">
+        <span>{{error_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/error_float}}
+    {{#success_float}}
+    <div class="success_float" onclick="closeNotify('.success_float')">
+        <span>{{success_float}}</span>
+        <img src="/svg/icon-close.svg" alt="" onload="SVGInject(this)">
+    </div>
+    {{/success_float}}
+    <section class="pt-10 ml-3 mr-3">
+        <h4 id="title-edition" class="color-primary">Meus Artigos</h4>
+        {{#btnSubmission}}
+        <a  onclick="showModal('.modal-newArticle')" id="" class="btn mt-3">Criar Artigo</a>
+        {{/btnSubmission}}
+        <!--
+        <form class="search w-100" action="/admin/articles/{{year}}" method="GET">
+            <input type="text" value="{{searchValue}} " name="searchValue" placeholder="Busque aqui!">
+            <img src="/svg/icon-search.svg" alt="" onload="SVGInject(this)">
+        </form>
+        -->
+        <div class="div-table mt-3">
+            <table >
+                <thead>
+                    
+                    <th>Dados Gerais</th>
+                    <th>Dados do Artigo</th>
+
+                </thead>
+                <tbody>
+                    {{# data }}
+                    <tr>
+                        <td class="viewArticleUser" data-id="{{_id}}">
+                            {{ano}} {{edital}}
+                            <span class="display-block font-size-10">
+                                {{instituicao}}
+                            </span> 
+                        </td>
+                        
+                        
+                        <td class="viewArticleUser " data-id="{{_id}}">
+                            <span class="status-green display-inline-block mb-1">{{#poster_numero}}<strong>Pôster nº {{poster_numero}}</strong> - {{/poster_numero}}{{poster_status}}</span> <br>
+                            {{resumo_titulo}} 
+                            <span class="display-block font-size-10">{{autor_nome}}{{#co_autor_nome}}, {{co_autor_nome}}{{/co_autor_nome}} <br> {{orientador_nome}}</span> 
+                        </td>
+                        
+                            
+                            
+                        
+                        
+                    </tr>
+                    {{/ data }}
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+</main>
+
+
+
+{{>private/partials/body-end}}
+
+<script>
+    insertEdital('select[name="edital"]')
+    insertInstituicao('select[name="instituicao"]')
+    insertGrandeArea('select[name="grande_area"]')
+    insertSubarea('select[name="subarea"]')
+    document.querySelector('.form-error-UnB').style.display = 'none'
+    document.querySelector('form .btn').style.display = 'block'
+    document.querySelector('select#instituicao').addEventListener('change',(e)=>{
+        console.log(e.target.value)
+        if (e.target.value == 'UNB') {
+            document.querySelector('.form-error-UnB').style.display = 'block'
+            document.querySelector('form .btn').style.display = 'none'
+
+        }else{
+            document.querySelector('.form-error-UnB').style.display = 'none'
+            document.querySelector('form .btn').style.display = 'block'
+
+        }
+    })
+    
+
+    countCaracAndInserValue('input[name="resumo_titulo"]','#input-span-resumo_titulo')
+    countCaracAndInserValue('textarea[name="resumo_introducao"]','#textarea-span-resumo_introducao')
+    countCaracAndInserValue('textarea[name="resumo_metodologia"]','#textarea-span-resumo_metodologia')
+    countCaracAndInserValue('textarea[name="resumo_resultado"]','#textarea-span-resumo_resultado')
+    countCaracAndInserValue('textarea[name="resumo_conclusao"]','#textarea-span-resumo_conclusao')
+    countCaracAndInserValue('textarea[name="palavras_chaves"]','#textarea-span-palavras_chaves')
+    countCaracAndInserValue('textarea[name="colaboradores"]','#textarea-span-colaboradores')
+
+
+
+</script>
+{{# modal }}
+    <script>
+        showModal('.modal')
+    </script>
+{{/ modal }}
+

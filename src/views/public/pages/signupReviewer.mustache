@@ -1,0 +1,133 @@
+{{>public/partials/head}}
+{{>public/partials/bg-circles}}
+
+
+
+<main class="flex-center height-100vh">
+        
+    <div class="signin">
+        <div class="header mb-4">
+            <h3 class="color-gray-4">Congresso de</h3>
+            <h1 class="color-primary ">Iniciação Científica</h1>
+            <h5 class="secondary">SGCIC - v 2.0</h5>
+        </div>
+        {{#notify_success}}
+        <div class="form-success">
+            <p>{{notify_success}}</p>
+        </div>
+        {{/notify_success}} 
+        {{#notify_error}}
+        <div class="form-error">
+            <p>{{notify_error}}</p>
+        </div>
+        {{/notify_error}}
+
+        <form action="/signupReviewer" id="form" method="POST">
+            <label id="name" for="">
+                <p>Nome completo:</p>
+                <input 
+                    type="text"
+                    placeholder="Digite seu nome!" 
+                    id="name" 
+                    name="name"
+                    value="{{values.name}}"
+                    {{#formErrors.name.msg}}
+                    class="input-error"
+                    {{/formErrors.name.msg}}
+                >
+                {{#formErrors.name.msg}}
+                <p class="error-inline">{{formErrors.name.msg}}</p>
+                {{/formErrors.name.msg}}
+            </label>
+            <label id="email" for="">
+                <p>E-mail:</p>
+                <input 
+                    type="text"
+                    placeholder="meu@email.com" 
+                    id="email" 
+                    name="email"
+                    value="{{values.email}}"
+                    {{#formErrors.email.msg}}
+                    class="input-error"
+                    {{/formErrors.email.msg}}
+                >
+                {{#formErrors.email.msg}}
+                <p class="error-inline">{{formErrors.email.msg}}</p>
+                {{/formErrors.email.msg}}
+            </label>
+            <label id="cpf" for="">
+                <p>Digite seu CPF:</p>
+                <input 
+                    type="number"
+                    placeholder="Apenas números!" 
+                    id="cpf" 
+                    name="cpf"
+                    value="{{values.cpf}}{{cpf}}"
+                    {{#formErrors.cpf.msg}}
+                    class="input-error"
+                    {{/formErrors.cpf.msg}}
+                >
+                {{#formErrors.cpf.msg}}
+                <p class="error-inline">{{formErrors.cpf.msg}}</p>
+                {{/formErrors.cpf.msg}}
+                
+            </label>
+            <label id="vinculo_institucional" for="">
+                <p>Vínculo institucional:</p>
+                <select name="vinculo_institucional" id="vinculo_institucional"
+                {{#formErrors.vinculo_institucional.msg}}
+                    class="select-error"
+                {{/formErrors.vinculo_institucional.msg}}
+                >
+                    {{#data.vinculo_institucional}}
+                    <option value="{{data.vinculo_institucional}}">{{data.vinculo_institucional}}</option>
+                    {{/data.vinculo_institucional}}
+                    {{^data.vinculo_institucional}}
+                    <option value="{{values.vinculo_institucional}}">{{values.vinculo_institucional}}</option>
+                    {{/data.vinculo_institucional}}
+                    
+                </select>
+                {{#formErrors.vinculo_institucional.msg}}
+                <p class="error-inline">{{formErrors.vinculo_institucional.msg}}</p>
+                {{/formErrors.vinculo_institucional.msg}}
+            </label>
+            <label id="password" for="">
+                <p>Digite sua senha:</p>
+                <input 
+                    type="password"
+                    name="password" 
+                    value="{{values.password}}"
+                    id="" 
+                    placeholder="******"
+                    {{#formErrors.password.msg}}
+                    class="input-error"
+                    {{/formErrors.password.msg}}
+                    >
+                {{#formErrors.password.msg}}
+                <p class="error-inline">{{formErrors.password.msg}}</p>
+                {{/formErrors.password.msg}}
+            </label>
+            
+            <div class="form-btns mt-1">
+                <a href="/signin" class="btn-secondary mr-2">Login</a>
+                <a href="#" class="btn " onclick="document.getElementById('form').submit()">Cadastrar</a>
+            </div>
+        </form>
+        
+       
+    </div>
+
+    
+</main>
+
+
+{{>public/partials/body-end}}
+
+<script>
+    insertInstituicao('select[name="vinculo_institucional"]')
+</script>
+
+
+
+
+

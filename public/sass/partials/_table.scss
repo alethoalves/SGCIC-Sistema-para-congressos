@@ -1,0 +1,60 @@
+.div-table{
+    width: 100% ;
+    overflow-x: scroll;
+}
+table{
+    border-collapse: collapse; 
+    width: 100%;
+    color: $gray-5;
+    @include typeface-2(p2,desktop);
+    @include responsive(s){
+        @include typeface-2(p3,mobile);
+    }
+    a:hover{
+        color: $gray-7;
+    }
+    thead{
+        box-shadow: $boxshadow-medium;
+        border-radius: $gap-2;
+
+        text-align: left;
+        color: $gray-4;
+        background-color: $white-pure;
+        border-bottom: 2px solid $gray-8;
+        th{
+            font-weight: 500;
+            padding: $gap-3 $gap-2;
+
+            &:first-child{
+                border-radius: $gap-2 0 0 0;
+            }
+            &:last-child{
+                border-radius: 0 $gap-2 0 0;
+            }
+        }
+        
+    }
+    tbody{
+
+        tr{ 
+            
+            background-color: $white-light;
+            transition: .3s ease;
+            &:hover{
+                background-color: $white-pure;
+                cursor: pointer;
+                color: $gray-2
+                
+            }
+            td{
+                height: 100%;
+                padding: $gap-3 $gap-2 $gap-3 $gap-2;
+               
+            }
+            
+        };
+    }
+}
+.td-line-bottom{
+    border-bottom: 2px solid #f1f1f1;
+}

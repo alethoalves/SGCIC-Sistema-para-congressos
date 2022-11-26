@@ -1,0 +1,60 @@
+.posters{
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+    overflow-y: scroll;
+}
+.poster{
+    padding: 5px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $gap-1;
+    margin: 3px;
+    width: 35px;
+    cursor: pointer;
+    p{
+        font-size: 10px;
+    }
+}
+.poster-desocupado{
+    background-color: $secondary-light;
+    p{
+        color: $primary;
+        font-size: 10px;
+    }
+}
+.poster-reservado{
+    background-color: $auxiliary-red-extralight;
+    p{
+        color: $primary;
+        font-size: 10px;
+    }
+}
+.poster-aguardandoAvaliacao{
+    background-color: $auxiliary-yellow-dark;
+    p{
+        color: $white-pure;
+        font-size: 10px;
+    }
+}
+.poster-emAvaliacao{
+    background-color: $auxiliary-blue-dark;
+    p{
+        color: $white-pure;
+        font-size: 10px;
+    }
+}
+.poster-avaliado{
+    background-color: $primary-medium;
+    p{
+        color: $white-pure;
+        font-size: 10px;
+    }
+}
+.poster-legend div {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: $gap-1;
+    margin-bottom: 2px;
+}

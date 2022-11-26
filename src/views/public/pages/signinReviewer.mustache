@@ -1,0 +1,67 @@
+{{>public/partials/head}}
+{{>public/partials/bg-circles}}
+
+
+
+<main class="flex-center height-100vh">
+        
+    <div class="signin">
+        <div class="header mb-4">
+            <h3 class="color-gray-4">Congresso de</h3>
+            <h1 class="color-primary ">Iniciação Científica</h1>
+            <h5 class="secondary">SGCIC - v 2.0</h5>
+        </div>
+        {{#notify_success}}
+        <div class="form-success">
+            <p>{{notify_success}}</p>
+        </div>
+        {{/notify_success}} 
+        {{#notify_error}}
+        <div class="form-error">
+            <p>{{notify_error}}</p>
+        </div>
+        {{/notify_error}}
+
+        <form action="/signinReviewer" id="form" method="POST">
+            
+            
+            <label id="cpf" for="">
+                <p>Digite seu CPF:</p>
+                <input 
+                    type="number"
+                    placeholder="Apenas números!" 
+                    id="cpf" 
+                    name="cpf"
+                    value="{{values.cpf}}"
+                    {{#formErrors.cpf.msg}}
+                    class="input-error"
+                    {{/formErrors.cpf.msg}}
+                >
+                {{#formErrors.cpf.msg}}
+                <p class="error-inline">{{formErrors.cpf.msg}}</p>
+                {{/formErrors.cpf.msg}}
+                
+            </label>
+            
+            <div class="form-btns mt-1">
+                <a href="#" class="btn w-100 " style="text-align: center;" onclick="document.getElementById('form').submit()">Validar CPF</a>
+            </div>
+        </form>
+        
+       
+    </div>
+
+    
+</main>
+
+
+{{>public/partials/body-end}}
+
+<script>
+    insertInstituicao('select[name="vinculo_institucional"]')
+</script>
+
+
+
+
+

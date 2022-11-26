@@ -1,0 +1,136 @@
+{{>private/partials/head}}
+{{>private/partials/bg-circles}}
+
+
+<main>
+    <section>
+        <nav class="nav-article" style="padding-top: 16px ;padding-bottom: 16px ;">
+            <ul>
+               <div class="flex-center">
+                <li class="first-item"><a href="/admin/articles/{{data.ano}}"><img class="mr-2" src="/svg/icon_arrow.svg" alt="" onload="SVGInject(this)">Voltar</a></li>
+                <li><a href="/admin/dashboard/poster/{{year}}/Artes e Humanidades/Matutino" >Artes e Humanidades - Matutino</a></li>
+                <li><a href="/admin/dashboard/poster/{{year}}/Artes e Humanidades/Vespertino" >Artes e Humanidades - Vespertino</a></li>
+                <li><a href="/admin/dashboard/poster/{{year}}/Saúde e Vida/Matutino" >Saúde e Vida - Matutino</a></li>
+                <li><a href="/admin/dashboard/poster/{{year}}/Saúde e Vida/Vespertino" >Saúde e Vida - Vespertino</a></li>
+                <li><a href="/admin/dashboard/poster/{{year}}/Exatas e Tecnológicas" >Exatas e Tecnológicas</a></li>
+               </div>
+            </ul>
+        </nav>
+    </section>
+    <section class="mr-3 ml-3 mb-3 display-flex">
+        <h5 class="color-primary mt-2 mb-2">{{grande_area}} - {{#turno}}Matutino{{/turno}}{{^turno}}Vespertino{{/turno}}</h5>
+    </section>
+    <section class="mr-3 ml-3 mb-3 display-flex">
+        <div class="poster-legend">
+            <div class="poster-reservado"><p>Pôster reservado</p></div>
+            <div class="poster-desocupado"><p>Pôster desocupado</p></div>
+            <div class="poster-aguardandoAvaliacao"><p>Pôster aguardando avaliação</p></div>
+            <div class="poster-emAvaliacao"><p>Pôster em avaliação</p></div>
+            <div class="poster-avaliado"><p>Pôster avaliado</p></div>
+        </div>
+    </section>
+    
+    <section class="mr-3 ml-3 display-flex">
+            <div class="card">
+                <p>GERAL - {{dataAll.all}}</p>
+                <div class="qnt">
+                    <div class="item poster-reservado"><p>{{dataAll.reservado}}</p></div>
+                    <div class="item poster-aguardandoAvaliacao"><p>{{dataAll.aguardandoAvaliacao}}</p></div>
+                    <div class="item poster-emAvaliacao"><p>{{dataAll.emAvaliacao}}</p></div>
+                    <div class="item poster-avaliado"><p>{{dataAll.avaliado}}</p></div>
+                </div>
+            </div>
+            <div class="card ml-3 mr-3">
+                <p>Menção Honrosa</p>
+                <h5 class="color-primary">{{dataAll.mencaoHonrosa}}</h5>
+            </div>
+            <div class="card">
+                <p>Indicação ao Prêmio Destaque</p>
+                <h5 class="color-primary">{{dataAll.indicacaoPremio}}</h5>
+            </div>
+    </section>
+    <section class="mr-3 ml-3 display-flex">
+        <!--######### MODAL POSTER ###########-->
+        <div class="dashboard-poster mr-3">
+            <div id="poster-dah">
+                
+                <div class="modal-posters">
+                    
+                    {{# dataPosters }}
+                        <div class="card {{name}} " >
+                            <div class="posters">  
+                                {{# list }}
+                                <div class="poster {{status}}" grande_area="{{data.grande_area}}" value="{{num}}" turno="{{name}}"><p>{{num}}</p></div>
+                                {{/ list }}
+                            </div>
+                        </div>
+                    {{/ dataPosters }}
+                    {{#turno}}
+                    <script>
+                        document.querySelector('.Matutino').style.display = 'block'
+                    </script>
+                    {{/turno}}
+                    {{^turno}}
+                    <script>
+                        document.querySelector('.Vespertino').style.display = 'block'
+                    </script>
+                    {{/turno}}
+                    
+                </div>
+            
+            </div>
+        </div>
+        <div class="dashboard-subareas">
+            {{#dataSubareas}}
+            <div class="card">
+                <p>{{subarea}}</p>
+                <div class="qnt">
+                    <div class="item poster-reservado"><p>{{reservado}}</p></div>
+                    <div class="item poster-aguardandoAvaliacao"><p>{{aguardandoAvaliacao}}</p></div>
+                    <div class="item poster-emAvaliacao"><p>{{emAvaliacao}}</p></div>
+                    <div class="item poster-avaliado"><p>{{avaliado}}</p></div>
+                </div>
+            </div>
+            {{/dataSubareas}}
+        </div>
+    </section>
+    <section class="mr-3 ml-3 display-flex mb-3 pb-3">
+        <div class="div-table ">
+            <table >
+                <thead>
+                    
+                    <th>Nome</th>
+                    <th>Trabalhos avaliados</th>
+                    <th>Subareas avaliadas</th>
+
+                </thead>
+                <tbody>
+                    {{# dataReviewer }}
+                    <tr>
+                        <td>{{name}}</td>
+                        
+                        <td>{{qnt}}</td>
+
+                        <td>
+                            {{#subareas}}
+                            <span class="status-green display-inline-block mb-1">{{.}}</span>
+                            {{/subareas}}
+                        </td>
+                        
+                    </tr>
+                    {{/ dataReviewer }}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+
+
+{{>private/partials/body-end}}
+
+<script>
+    setTimeout(() => {
+        window.location.reload();
+    }, "3000")
+</script>
